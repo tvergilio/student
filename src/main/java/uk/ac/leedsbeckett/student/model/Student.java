@@ -12,9 +12,10 @@ import java.util.List;
 @Entity
 @Data
 public class Student {
-    private @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    @Column(name="id")
+    private Long id;
     @Column(unique = true)
     private String studentId;
     private String surname;
@@ -23,6 +24,8 @@ public class Student {
     @ToString.Exclude
     @JsonIgnore
     private List<Enrolment> enrolmentList = new ArrayList<>();
+    @OneToOne(mappedBy = "student")
+    private User user;
 
     public Student() {
     }
