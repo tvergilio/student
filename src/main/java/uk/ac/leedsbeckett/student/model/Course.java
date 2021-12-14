@@ -17,7 +17,7 @@ public class Course {
     private String title;
     private String description;
     private Double fee;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "course")
     @ToString.Exclude
     @JsonIgnore
     private List<Enrolment> enrolmentList = new ArrayList<>();

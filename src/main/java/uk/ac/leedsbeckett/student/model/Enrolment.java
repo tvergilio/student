@@ -1,23 +1,23 @@
 package uk.ac.leedsbeckett.student.model;
 
 import lombok.Data;
-import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Data
 public class Enrolment {
-    private @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    Long id;
-    @OneToOne
-    @JoinColumn(name="student_fk",referencedColumnName="id")
-    @ToString.Exclude
+    @EmbeddedId
+    private EnrolmentKey id = new EnrolmentKey();
+
+    @ManyToOne
+    @MapsId("studentId")
+    @JoinColumn(name="student_id")
     private Student student;
-    @OneToOne
-    @JoinColumn(name="course_fk",referencedColumnName="id")
-    @ToString.Exclude
+
+    @ManyToOne
+    @MapsId("courseId")
+    @JoinColumn(name="course_id")
     private Course course;
 
     public Enrolment(Student student, Course course) {

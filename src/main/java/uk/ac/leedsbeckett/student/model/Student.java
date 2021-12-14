@@ -19,7 +19,7 @@ public class Student {
     private String studentId;
     private String surname;
     private String forename;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "student")
     @ToString.Exclude
     @JsonIgnore
     private List<Enrolment> enrolmentList = new ArrayList<>();
