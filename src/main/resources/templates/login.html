@@ -1,20 +1,41 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>Login page</title>
-    <link th:href="@{/public/style.css}" rel="stylesheet" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="tvergilio">
+    <title>Please sign in</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/signin.css}">
 </head>
 <body>
 <div id="container">
-    <h2>Login page</h2>
-    <form th:action="@{/login.html}" method="post">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" autofocus="autofocus" />
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" />
-        <input id="submit" type="submit" value="Log in" />
+    <form class="form-signin" th:action="@{/login}" method="post">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <div th:if="${param.error}" class="alert alert-danger">
+            Invalid credentials.
+        </div>
+        <div th:if="${param.logout}" class="alert alert-success">
+            You have been logged out.
+        </div>
+        <p>
+            <label for="username" class="sr-only">Username</label>
+            <input type="text" id="username" name="userName" class="form-control" placeholder="Username" required
+                   autofocus/>
+        </p>
+        <p>
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required/>
+        </p>
+        <p>
+            <input type="checkbox" name="remember-me"/>&nbsp;Remember Me
+        </p>
+        <input name="_csrf" type="hidden" value="7607f1cc-aeb7-4061-b49f-43bc44e4784e"/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <div>
+            <a href="/register">Click here to register.</a>
+        </div>
     </form>
-    <p th:if="${loginError}" class="error">Wrong user or password</p>
 </div>
 </body>
 </html>
