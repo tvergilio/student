@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import uk.ac.leedsbeckett.student.model.UserRepository;
-import uk.ac.leedsbeckett.student.service.PortalUserDetailsService;
+import uk.ac.leedsbeckett.student.service.PortalService;
 
 import javax.sql.DataSource;
 
@@ -20,15 +20,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final DataSource dataSource;
     private final UserRepository userRepository;
+    private final PortalService portalService;
 
-    public SecurityConfiguration(DataSource dataSource, UserRepository userRepository) {
+    public SecurityConfiguration(DataSource dataSource, UserRepository userRepository, PortalService portalService) {
         this.dataSource = dataSource;
         this.userRepository = userRepository;
+        this.portalService = portalService;
     }
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new PortalUserDetailsService(userRepository);
+        return portalService;
     }
 
     @Bean

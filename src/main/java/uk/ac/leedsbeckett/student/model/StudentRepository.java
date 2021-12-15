@@ -9,4 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Find Student (one, all, or search by simple or complex properties)
  */
 public interface StudentRepository extends JpaRepository<Student, Long> {
+    Student findByUserId(Long userId);
 }

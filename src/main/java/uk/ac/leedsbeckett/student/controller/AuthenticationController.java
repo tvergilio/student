@@ -1,53 +1,33 @@
 package uk.ac.leedsbeckett.student.controller;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import uk.ac.leedsbeckett.student.model.Role;
 import uk.ac.leedsbeckett.student.model.User;
-import uk.ac.leedsbeckett.student.model.UserRepository;
+import uk.ac.leedsbeckett.student.service.AuthenticationService;
 
 @Controller
 public class AuthenticationController {
 
-    private final UserRepository userRepository;
+    private final AuthenticationService authenticationService;
 
-    public AuthenticationController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public AuthenticationController(AuthenticationService authenticationService) {
+        this.authenticationService = authenticationService;
     }
 
-    // Login form
-    @RequestMapping("/login")
-    public String login() {
-        return "login";
-    }
-
-    // Login form with error
     @GetMapping("/login-error")
     public String loginError(Model model) {
-        model.addAttribute("loginError", true);
-        return "login";
+        return authenticationService.showLoginError(model);
     }
 
     @GetMapping("/register")
-    public String showRegistrationForm(Model model) {
-        model.addAttribute("user", new User());
-
-        return "register";
+    public String registrationForm(Model model) {
+        return authenticationService.showRegistrationForm(model);
     }
 
     @PostMapping("/register")
     public String register(User user) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
-        user.setRole(Role.STUDENT);
-
-        userRepository.save(user);
-
-        return "register-success";
+        return authenticationService.registerNewUser(user);
     }
 }

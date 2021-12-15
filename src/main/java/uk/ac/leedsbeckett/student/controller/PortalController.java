@@ -1,22 +1,22 @@
 package uk.ac.leedsbeckett.student.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import uk.ac.leedsbeckett.student.model.StudentRepository;
+import org.springframework.web.servlet.ModelAndView;
+import uk.ac.leedsbeckett.student.service.PortalService;
 
 @Controller
 public class PortalController {
 
-    private final StudentRepository studentRepository;
+private final PortalService portalService;
 
-    public PortalController(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
+    public PortalController(PortalService portalService) {
+        this.portalService = portalService;
     }
 
     @RequestMapping("/home")
-    public String home(Model model) {
-        return "home";
+    public ModelAndView home() {
+        return portalService.renderHomePage();
     }
 
 }
