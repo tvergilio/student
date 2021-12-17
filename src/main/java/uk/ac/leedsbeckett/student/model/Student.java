@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class Student {
     @Column(name="id")
     private Long id;
     @Column(unique = true)
+    @NotBlank
     private String studentId;
     private String surname;
     private String forename;
@@ -28,6 +30,7 @@ public class Student {
     private User user;
 
     public Student() {
+        populateStudentId();
     }
 
     public Student(String forename, String surname) {

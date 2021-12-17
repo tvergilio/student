@@ -8,7 +8,7 @@ import uk.ac.leedsbeckett.student.service.PortalService;
 @Controller
 public class PortalController {
 
-private final PortalService portalService;
+    private final PortalService portalService;
 
     public PortalController(PortalService portalService) {
         this.portalService = portalService;
@@ -16,7 +16,12 @@ private final PortalService portalService;
 
     @RequestMapping("/home")
     public ModelAndView home() {
-        return portalService.renderHomePage();
+        return portalService.fetchStudentProfile("home");
+    }
+
+    @RequestMapping("/profile")
+    public ModelAndView profile() {
+        return portalService.fetchStudentProfile("profile");
     }
 
 }

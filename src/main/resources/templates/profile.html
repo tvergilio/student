@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+<head>
+    <title>Student Portal Home Page</title>
+    <meta th:replace="fragments/header"/>
+</head>
+<body>
+<div th:replace="fragments/nav"></div>
+<div id="container" class="container">
+    <!--/*@thymesVar id="student" type="uk.ac.leedsbeckett.student.Student"*/-->
+    <th:block th:if="${student}">
+        <h1 th:inline="text">My Student Profile</h1>
+        <p th:inline="text">First Name: [[${student.forename}]]</p>
+        <p th:inline="text">Surname: [[${student.surname}]]</p>
+        <p th:inline="text">Student ID: [[${student.studentId}]]</p>
+    </th:block>
+</div>
+</body>
+</html>

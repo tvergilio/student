@@ -6,7 +6,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 import uk.ac.leedsbeckett.student.model.*;
 
@@ -30,25 +29,26 @@ public class PortalService implements UserDetailsService {
         return new PortalUserDetails(user);
     }
 
-    public ModelAndView renderHomePage() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication== null || !authentication.isAuthenticated()) {
+    public ModelAndView fetchStudentProfile(String view) {
+        User user = getLoggedInUser();
+        if (user == null) {
             return new ModelAndView("redirect:/login");
         }
-        ModelAndView modelAndView = new ModelAndView("home");
-        User user = userRepository.findUserByUserName(authentication.getName());
+        ModelAndView modelAndView = new ModelAndView(view);
         modelAndView.addObject("user", user);
         Student student = studentRepository.findByUserId(user.getId());
-        modelAndView.addObject("student", student);
+        if (student != null) {
+            modelAndView.addObject("student", student);
+        }
         return modelAndView;
     }
 
-    private User findUser(Model model, Authentication authentication) {
-        return userRepository.findUserByUserName(authentication.getName());
-    }
-
-    private void findStudent(Model model, User user) {
-        Student student = studentRepository.findByUserId(user.getId());
-        model.addAttribute(student);
+    public User getLoggedInUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = null;
+        if (authentication != null && authentication.isAuthenticated()) {
+            user = userRepository.findUserByUserName(authentication.getName());
+        }
+        return user;
     }
 }

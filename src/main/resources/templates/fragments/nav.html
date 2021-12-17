@@ -8,17 +8,17 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/home}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/courses}">All Courses</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/profile}">My Profile</a>
-                </li>
-                <li class="nav-item">
+                <li class="nav-item" th:if="${student}">
                     <a class="nav-link" th:href="@{/enrolments}">My Enrolments</a>
+                </li>
+                <li class="nav-item" th:if="${student}">
+                    <a class="nav-link" th:href="@{/profile}">My Student Profile</a>
                 </li>
                 <li class="nav-item">
                     <form name="logout" th:action="@{/logout}" method="post">
