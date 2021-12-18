@@ -1,6 +1,8 @@
 package uk.ac.leedsbeckett.student.model;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 /**
  * Inherit database interaction functionality from JpaRepository for Enrolment class, of ID type Long
  * Create new Enrolment *
@@ -10,4 +12,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface EnrolmentRepository extends JpaRepository<Enrolment, Long> {
     Enrolment findEnrolmentByCourseAndStudent(Course course, Student student);
+    List<Enrolment> findEnrolmentByStudent(Student student);
 }

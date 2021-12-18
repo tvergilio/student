@@ -22,21 +22,21 @@ public class CourseService {
         this.enrolmentService = enrolmentService;
     }
 
-    public ModelAndView fetchCourses() {
+    public ModelAndView getCourses() {
         ModelAndView modelAndView = new ModelAndView("courses");
         List<Course> courses = courseRepository.findAll();
         modelAndView.addObject("courses", courses);
         return modelAndView;
     }
 
-    public ModelAndView getCourse(Long id) {
-        populateUserStudentAndCourse(id);
+    public ModelAndView getCourse(Long id, User user) {
+        populateStudentAndCourse(user, id);
         Enrolment existingEnrolment = enrolmentService.findEnrolment(course, student);
         return getModelAndView(existingEnrolment != null);
     }
 
-    public ModelAndView enrolInCourse(Long courseId) {
-        populateUserStudentAndCourse(courseId);
+    public ModelAndView enrolInCourse(Long id, User user) {
+        populateStudentAndCourse(user, id);
         enrolmentService.createEnrolment(student, course);
         return getModelAndView(true);
     }
@@ -49,11 +49,7 @@ public class CourseService {
         return modelAndView;
     }
 
-    private void populateUserStudentAndCourse(Long courseId) {
-        User user = userService.getLoggedInUser();
-        if (user == null) {
-            throw new RuntimeException();
-        }
+    private void populateStudentAndCourse(User user, Long courseId) {
         student = userService.findStudentOrCreateFromUser(user);
         course = courseRepository.findById(courseId).orElseThrow(CourseNotFoundException::new);
     }

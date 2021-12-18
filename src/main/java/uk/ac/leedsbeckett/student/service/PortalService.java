@@ -10,14 +10,10 @@ import uk.ac.leedsbeckett.student.model.*;
 @Component
 public class PortalService implements UserDetailsService {
 
-    private final StudentRepository studentRepository;
     private final UserRepository userRepository;
-    private final UserService userService;
 
-    public PortalService(StudentRepository studentRepository, UserRepository userRepository, UserService userService) {
-        this.studentRepository = studentRepository;
+    public PortalService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.userService = userService;
     }
 
     @Override
@@ -29,14 +25,12 @@ public class PortalService implements UserDetailsService {
         return new PortalUserDetails(user);
     }
 
-    public ModelAndView fetchStudentProfile(String view) {
-        User user = userService.getLoggedInUser();
+    public ModelAndView getProfile(User user, Student student, String view) {
         if (user == null) {
             return new ModelAndView("redirect:/login");
         }
         ModelAndView modelAndView = new ModelAndView(view);
         modelAndView.addObject("user", user);
-        Student student = studentRepository.findByUserId(user.getId());
         if (student != null) {
             modelAndView.addObject("student", student);
         }

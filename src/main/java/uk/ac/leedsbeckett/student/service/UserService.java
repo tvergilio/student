@@ -22,11 +22,9 @@ public class UserService {
     public Student findStudentOrCreateFromUser(User user) {
         Student student = studentRepository.findByUserId(user.getId());
         if (student == null) {
-            student = new Student();
-            user.setStudent(student);
-            userRepository.save(user);
+            createStudentFromUser(user);
         }
-        return student;
+        return studentRepository.findByUserId(user.getId());
     }
 
     public User getLoggedInUser() {
@@ -36,5 +34,11 @@ public class UserService {
             user = userRepository.findUserByUserName(authentication.getName());
         }
         return user;
+    }
+
+    private void createStudentFromUser(User user) {
+        Student student = new Student();
+        user.setStudent(student);
+        userRepository.saveAndFlush(user);
     }
 }
