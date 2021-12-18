@@ -8,12 +8,12 @@
 <body>
 <div th:replace="fragments/nav"></div>
 <div id="container">
-    <table class="table">
+    <table class="table" data-toggle="table">
         <thead>
         <tr>
-            <th scope="col">Title</th>
+            <th scope="col" data-sortable="true">Title</th>
             <th scope="col">Description</th>
-            <th scope="col">Fee</th>
+            <th scope="col" data-sortable="true">Fee</th>
             <th scope="col">Action</th>
         </tr>
         </thead>
@@ -38,5 +38,6 @@
         </tbody>
     </table>
 </div>
+<div th:replace="fragments/footer"></div>
 </body>
 </html>
