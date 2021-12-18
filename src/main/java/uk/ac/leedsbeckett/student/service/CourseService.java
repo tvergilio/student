@@ -33,18 +33,20 @@ public class CourseService {
     public ModelAndView getCourse(Long id) {
         populateUserStudentAndCourse(id);
         Enrolment existingEnrolment = enrolmentService.findEnrolment(course, student);
-        ModelAndView modelAndView = new ModelAndView("course");
-        modelAndView.addObject("course", course);
-        modelAndView.addObject("isEnrolled", existingEnrolment != null);
-        return modelAndView;
+        return getModelAndView(existingEnrolment != null);
     }
 
     public ModelAndView enrolInCourse(Long courseId) {
         populateUserStudentAndCourse(courseId);
-        ModelAndView modelAndView = new ModelAndView("course");
         enrolmentService.createEnrolment(student, course);
+        return getModelAndView(true);
+    }
+
+    private ModelAndView getModelAndView(boolean isEnrolled) {
+        ModelAndView modelAndView = new ModelAndView("course");
         modelAndView.addObject("course", course);
-        modelAndView.addObject("isEnrolled", true);
+        modelAndView.addObject("student", student);
+        modelAndView.addObject("isEnrolled", isEnrolled);
         return modelAndView;
     }
 
