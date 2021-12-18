@@ -19,14 +19,6 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public Student findStudentOrCreateFromUser(User user) {
-        Student student = studentRepository.findByUserId(user.getId());
-        if (student == null) {
-            createStudentFromUser(user);
-        }
-        return studentRepository.findByUserId(user.getId());
-    }
-
     public User getLoggedInUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = null;
@@ -36,7 +28,11 @@ public class UserService {
         return user;
     }
 
-    private void createStudentFromUser(User user) {
+    public Student findStudentFromUser(User user) {
+        return studentRepository.findByUserId(user.getId());
+    }
+
+    public void createStudentFromUser(User user) {
         Student student = new Student();
         user.setStudent(student);
         userRepository.saveAndFlush(user);

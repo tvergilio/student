@@ -37,6 +37,10 @@ public class CourseService {
 
     public ModelAndView enrolInCourse(Long id, User user) {
         populateStudentAndCourse(user, id);
+        if (student == null) {
+            userService.createStudentFromUser(user);
+        }
+        student = userService.findStudentFromUser(user);
         enrolmentService.createEnrolment(student, course);
         return getModelAndView(true);
     }
@@ -50,7 +54,7 @@ public class CourseService {
     }
 
     private void populateStudentAndCourse(User user, Long courseId) {
-        student = userService.findStudentOrCreateFromUser(user);
+        student = userService.findStudentFromUser(user);
         course = courseRepository.findById(courseId).orElseThrow(CourseNotFoundException::new);
     }
 
