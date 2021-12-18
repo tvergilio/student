@@ -12,15 +12,15 @@ import java.util.List;
 public class CourseService {
 
     private final CourseRepository courseRepository;
-    private final PortalService portalService;
+    private final EnrolmentService enrolmentService;
     private final UserService userService;
-    private final EnrolmentRepository enrolmentRepository;
+    private Student student;
+    private Course course;
 
-    public CourseService(CourseRepository courseRepository, PortalService portalService, UserService userService, EnrolmentRepository enrolmentRepository) {
+    public CourseService(CourseRepository courseRepository, UserService userService, EnrolmentService enrolmentService) {
         this.courseRepository = courseRepository;
-        this.portalService = portalService;
         this.userService = userService;
-        this.enrolmentRepository = enrolmentRepository;
+        this.enrolmentService = enrolmentService;
     }
 
     public ModelAndView fetchCourses() {
@@ -30,30 +30,31 @@ public class CourseService {
         return modelAndView;
     }
 
-    public ModelAndView getCourse(Long id) throws ChangeSetPersister.NotFoundException {
+    public ModelAndView getCourse(Long id) {
+        populateUserStudentAndCourse(id);
+        Enrolment existingEnrolment = enrolmentService.findEnrolment(course, student);
         ModelAndView modelAndView = new ModelAndView("course");
-        Course course = courseRepository.findById(id).orElseThrow(ChangeSetPersister.NotFoundException::new);
         modelAndView.addObject("course", course);
+        modelAndView.addObject("isEnrolled", existingEnrolment != null);
         return modelAndView;
     }
 
-    public ModelAndView enrol(Long courseId) {
-        User user = portalService.getLoggedInUser();
+    public ModelAndView enrolInCourse(Long courseId) {
+        populateUserStudentAndCourse(courseId);
+        ModelAndView modelAndView = new ModelAndView("course");
+        enrolmentService.createEnrolment(student, course);
+        modelAndView.addObject("course", course);
+        modelAndView.addObject("isEnrolled", true);
+        return modelAndView;
+    }
+
+    private void populateUserStudentAndCourse(Long courseId) {
+        User user = userService.getLoggedInUser();
         if (user == null) {
-            return new ModelAndView("redirect:/login");
+            throw new RuntimeException();
         }
-        Student student = userService.findStudentOrCreateFromUser(user);
-        Course course = courseRepository.findById(courseId).orElseThrow(CourseNotFoundException::new);
-        ModelAndView modelAndView = new ModelAndView("course");
-        Enrolment enrolment = createEnrolment(student, course);
-        modelAndView.addObject("course", course);
-        modelAndView.addObject("student", student);
-        modelAndView.addObject("enrolment", enrolment);
-        return modelAndView;
+        student = userService.findStudentOrCreateFromUser(user);
+        course = courseRepository.findById(courseId).orElseThrow(CourseNotFoundException::new);
     }
 
-    private Enrolment createEnrolment(Student student, Course course) {
-        Enrolment enrolment = new Enrolment(student, course);
-        return enrolmentRepository.save(enrolment);
-    }
 }

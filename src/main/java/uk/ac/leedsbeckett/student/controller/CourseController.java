@@ -28,6 +28,6 @@ public class CourseController {
 
     @RequestMapping("/courses/{id}/enrol")
     public ModelAndView enrolInCourse(@PathVariable Long id) {
-        return courseService.enrol(id);
+        return courseService.enrolInCourse(id);
     }
 }

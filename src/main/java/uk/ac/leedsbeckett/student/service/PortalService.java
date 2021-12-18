@@ -1,7 +1,5 @@
 package uk.ac.leedsbeckett.student.service;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,10 +12,12 @@ public class PortalService implements UserDetailsService {
 
     private final StudentRepository studentRepository;
     private final UserRepository userRepository;
+    private final UserService userService;
 
-    public PortalService(StudentRepository studentRepository, UserRepository userRepository) {
+    public PortalService(StudentRepository studentRepository, UserRepository userRepository, UserService userService) {
         this.studentRepository = studentRepository;
         this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class PortalService implements UserDetailsService {
     }
 
     public ModelAndView fetchStudentProfile(String view) {
-        User user = getLoggedInUser();
+        User user = userService.getLoggedInUser();
         if (user == null) {
             return new ModelAndView("redirect:/login");
         }
@@ -43,12 +43,4 @@ public class PortalService implements UserDetailsService {
         return modelAndView;
     }
 
-    public User getLoggedInUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = null;
-        if (authentication != null && authentication.isAuthenticated()) {
-            user = userRepository.findUserByUserName(authentication.getName());
-        }
-        return user;
-    }
 }

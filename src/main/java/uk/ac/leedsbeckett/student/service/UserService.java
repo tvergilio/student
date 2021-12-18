@@ -1,5 +1,7 @@
 package uk.ac.leedsbeckett.student.service;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import uk.ac.leedsbeckett.student.model.Student;
 import uk.ac.leedsbeckett.student.model.StudentRepository;
@@ -25,5 +27,14 @@ public class UserService {
             userRepository.save(user);
         }
         return student;
+    }
+
+    public User getLoggedInUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = null;
+        if (authentication != null && authentication.isAuthenticated()) {
+            user = userRepository.findUserByUserName(authentication.getName());
+        }
+        return user;
     }
 }

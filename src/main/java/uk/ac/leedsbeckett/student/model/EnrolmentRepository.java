@@ -9,4 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Find Enrolment (one, all, or search by simple or complex properties)
  */
 public interface EnrolmentRepository extends JpaRepository<Enrolment, Long> {
+    Enrolment findEnrolmentByCourseAndStudent(Course course, Student student);
 }
