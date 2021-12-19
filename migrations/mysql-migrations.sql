@@ -176,8 +176,8 @@ INSERT INTO student.course (id, description, fee, title)
 VALUES (38, 'This module will focus on using dramatic story and ritual as a means to inspire possibilities for social change when working with young people in challenging educational/community settings.', 420,
         'Drama for Social Justice');
 INSERT INTO student.course (id, description, fee, title)
-VALUES (39, '', 710,
-        'Festival Project');
+VALUES (39, 'Explore the rigorous craft of typography as a means to manage language, function and space, and consider how meaning and expression can be used to enhance a visual form. You will work through practical problems of managing complex amounts of information within a defined space and format, to enhance communication and the reader/viewer experience.', 790,
+        'Typography');
 INSERT INTO student.course (id, description, fee, title)
 VALUES (40, 'Study the professional context in which artists are required to teach workshops, master-classes or to ‘tour’ their teaching alongside performance work. You''ll understand this method as a way of gaining support and building public engagement, opening up and sharing process and practice. You''ll address the ways in which choreographers can share and develop their practice as teachers and the skills required to do this effectively. Teaching and workshop situations are often a creative space for artists to test their own creative thinking, choreographic philosophies and embodied principles with a group of workshop participants. As such, you''ll consider how pedagogy is situated in relation to your artistic practice and explore how you want to establish your teacher identity. The module will focus on what the key concerns of artists teaching with integrity may be in contemporary contexts. Your focus will be the teaching of creative practice and choreography, and you''ll explore the pedagogic and philosophic principles of ‘workshopping’ and creative group leadership.', 580,
         'Artist as Teacher');
