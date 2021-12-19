@@ -10,7 +10,6 @@ footer {
 }
 
 .copyright {
-    position: absolute;
     width: 100%;
     line-height: 40px;
     text-align: center;
@@ -18,7 +17,6 @@ footer {
 }
 
 nav .navbar-brand {
-    /* size for brand */
     font-size: xx-large;
 }
 
@@ -28,4 +26,22 @@ nav .navbar-brand .yellow {
 
 .table .table-borderless thead tr th, .table tbody tr td {
     border: none; !important;
+}
+
+table {
+    table-layout: fixed;
+}
+
+td {
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+}
+
+.narrow-width {
+    width: 200px;
+}
+
+.normal-width {
+    width: 400px;
 }
