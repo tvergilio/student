@@ -20,9 +20,10 @@
             <label for="surname">Surname: </label>
             <input id="surname" type="text" th:field="*{surname}" class="form-control w-25" required/>
         </p>
-        <input id="id" type="hidden" th:field="*{id}" />
+        <input id="id" type="hidden" th:field="*{id}"/>
         <button type="submit" class="btn btn-lg btn-primary">Submit</button>
     </form>
 </div>
+<div th:replace="fragments/footer"></div>
 </body>
 </html>
