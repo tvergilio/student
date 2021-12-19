@@ -1,9 +1,7 @@
 package uk.ac.leedsbeckett.student.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import uk.ac.leedsbeckett.student.model.User;
 import uk.ac.leedsbeckett.student.service.CourseService;
@@ -30,5 +28,10 @@ public class CourseController {
     @RequestMapping("/courses/{id}/enrol")
     public ModelAndView enrolInCourse(@PathVariable Long id, @RequestAttribute("user") User user) {
         return courseService.enrolInCourse(id, user);
+    }
+
+    @PostMapping("/courses/search")
+    public ModelAndView searchCourses(@RequestParam String searchString) {
+        return courseService.searchCourses(searchString);
     }
 }

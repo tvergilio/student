@@ -58,4 +58,11 @@ public class CourseService {
         course = courseRepository.findById(courseId).orElseThrow(CourseNotFoundException::new);
     }
 
+    public ModelAndView searchCourses(String searchString) {
+        ModelAndView modelAndView = new ModelAndView("courses");
+        List<Course> courses = courseRepository.search(searchString);
+        modelAndView.addObject("courses", courses);
+        return modelAndView;
+    }
+
 }
