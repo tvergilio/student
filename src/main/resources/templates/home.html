@@ -8,7 +8,7 @@
 <body>
 <div th:replace="fragments/nav"></div>
 <div id="container" class="container">
-    <h2 th:inline="text">Hello, [[${user.userName}]]!</h2>
+    <h2 th:inline="text">Hello, [[${showFirstName ? student.forename : user.userName}]]!</h2>
     <p>Welcome to your portal.</p>
     <p>Here, you will find information about the courses we offer and will be able to enrol in them.</p>
     <p>Once you have become a student, which happens automatically upon enrolling in your first course, you will be able to access and edit your student profile.</p>

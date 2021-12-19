@@ -20,12 +20,7 @@ public class PortalController {
 
     @RequestMapping("/home")
     public ModelAndView home(@RequestAttribute("user") User user, @Nullable @RequestAttribute("student") Student student) {
-        return portalService.getProfile(user, student, "home");
-    }
-
-    @RequestMapping("/profile")
-    public ModelAndView profile(@RequestAttribute("user") User user, @Nullable @RequestAttribute("student") Student student) {
-        return portalService.getProfile(user, student, "profile");
+        return portalService.loadPortalUserDetails(user, student, "home");
     }
 
 }

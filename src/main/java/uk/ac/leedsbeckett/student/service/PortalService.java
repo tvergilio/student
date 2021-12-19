@@ -25,7 +25,7 @@ public class PortalService implements UserDetailsService {
         return new PortalUserDetails(user);
     }
 
-    public ModelAndView getProfile(User user, Student student, String view) {
+    public ModelAndView loadPortalUserDetails(User user, Student student, String view) {
         if (user == null) {
             return new ModelAndView("redirect:/login");
         }
@@ -34,6 +34,7 @@ public class PortalService implements UserDetailsService {
         if (student != null) {
             modelAndView.addObject("student", student);
         }
+        modelAndView.addObject("showFirstName", student != null && student.getForename() != null);
         return modelAndView;
     }
 

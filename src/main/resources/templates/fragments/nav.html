@@ -7,7 +7,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav mr-auto" onmouseenter="hideAlert()">
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/home}">Home</a>
                 </li>
@@ -18,7 +18,7 @@
                     <a class="nav-link" th:href="@{/enrolments}">My Enrolments</a>
                 </li>
                 <li class="nav-item" th:if="${isStudent}">
-                    <a class="nav-link" th:href="@{/profile}">My Student Profile</a>
+                    <a class="nav-link" th:href="@{/profile}">Student Profile</a>
                 </li>
                 <li class="nav-item">
                     <form name="logout" th:action="@{/logout}" method="post">

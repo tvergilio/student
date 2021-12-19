@@ -9,10 +9,10 @@ import uk.ac.leedsbeckett.student.controller.StudentInterceptor;
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
-    private final StudentInterceptor courseInterceptor;
+    private final StudentInterceptor studentInterceptor;
 
-    public MvcConfig(StudentInterceptor courseInterceptor) {
-        this.courseInterceptor = courseInterceptor;
+    public MvcConfig(StudentInterceptor studentInterceptor) {
+        this.studentInterceptor = studentInterceptor;
     }
 
     @Override
@@ -26,6 +26,6 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(courseInterceptor).addPathPatterns("/courses/**", "/home", "/enrolments/**", "/profile/**");
+        registry.addInterceptor(studentInterceptor).addPathPatterns("/courses/**", "/home", "/enrolments/**", "/profile/**");
     }
 }
