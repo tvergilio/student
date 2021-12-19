@@ -16,3 +16,16 @@ footer {
     text-align: center;
     bottom:0;
 }
+
+nav .navbar-brand {
+    /* size for brand */
+    font-size: xx-large;
+}
+
+nav .navbar-brand .yellow {
+    color: #f5b82e;
+}
+
+.table .table-borderless thead tr th, .table tbody tr td {
+    border: none; !important;
+}
