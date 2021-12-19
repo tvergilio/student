@@ -163,6 +163,55 @@ VALUES (33, 'You will focus on the 1990s and 2000s - including the US-led global
 INSERT INTO student.course (id, description, fee, title)
 VALUES (34, 'This module will introduce a range of post-millennial Anglophone Caribbean texts. You''ll discuss topics such as how the form and themes of the texts are shaped around music, and whether contemporary Caribbean writers are still responding to postcolonial concerns or if they attempt to untether themselves from the label of the ''postcolonial''. The module will develop your capacity to share ideas and articulate arguments verbally, in particular through oral presentations and group work, and in creative and academic writing.', 710,
         'Contemporary Caribbean Writing');
+INSERT INTO student.course (id, description, fee, title)
+VALUES (35, 'Visit a national or international performance festival with and take the opportunity to collaborate in talk-back sessions with artists, directors, critics and academics. You will submit a written report on your experience.', 210,
+        'Festival Project');
+INSERT INTO student.course (id, description, fee, title)
+VALUES (36, 'We will lead you through a series of classes in voice and body-based training including Feldenkrais, Yoga, Tai Chi, Clean Language, Kalaripyatthu, Hart and Polyphonic singing.', 310,
+        'Embodied Knowledges');
+INSERT INTO student.course (id, description, fee, title)
+VALUES (37, 'Develop your artistic practice under the mentorship and guidance of an established professional artist who operates in your area of interest. You will be encouraged to critically reflect on your work and identify areas where you can enhance your skills.', 420,
+        'The Artist Mentor');
+INSERT INTO student.course (id, description, fee, title)
+VALUES (38, 'This module will focus on using dramatic story and ritual as a means to inspire possibilities for social change when working with young people in challenging educational/community settings.', 420,
+        'Drama for Social Justice');
+INSERT INTO student.course (id, description, fee, title)
+VALUES (39, '', 710,
+        'Festival Project');
+INSERT INTO student.course (id, description, fee, title)
+VALUES (40, 'Study the professional context in which artists are required to teach workshops, master-classes or to ‘tour’ their teaching alongside performance work. You''ll understand this method as a way of gaining support and building public engagement, opening up and sharing process and practice. You''ll address the ways in which choreographers can share and develop their practice as teachers and the skills required to do this effectively. Teaching and workshop situations are often a creative space for artists to test their own creative thinking, choreographic philosophies and embodied principles with a group of workshop participants. As such, you''ll consider how pedagogy is situated in relation to your artistic practice and explore how you want to establish your teacher identity. The module will focus on what the key concerns of artists teaching with integrity may be in contemporary contexts. Your focus will be the teaching of creative practice and choreography, and you''ll explore the pedagogic and philosophic principles of ‘workshopping’ and creative group leadership.', 580,
+        'Artist as Teacher');
+INSERT INTO student.course (id, description, fee, title)
+VALUES (41, 'This module will introduce you to some key ideas, issues and theoretical debates in education. You''ll engage in exploratory discussions about the ways that these issues relate to the right of citizens and particularly children to education.', 200,
+        'Contemporary Issues in Education');
+INSERT INTO student.course (id, description, fee, title)
+VALUES (42, 'This module takes coloniality as its starting point in order to look critically at what constitutes decolonial thought and its possible interface with critical race theory.', 530,
+        'Decolonial Thought and Critical Race Theory');
+INSERT INTO student.course (id, description, fee, title)
+VALUES (43, 'Engage both practically and theoretically in the art of creative learning with and for young people. You''ll critically examine a wide range of theoretical, historical, philosophical, sociological and contemporary creative arts pedagogies in educational and community settings. Your work will draw from national and international creative arts partners, providing an insight to innovative practices through seminar opportunities.', 710,
+        'Creative Pedagogies');
+INSERT INTO student.course (id, description, fee, title)
+VALUES (44, 'Discover the stages involved in the development of database systems and acquire database modelling and implementation skills. You will also examine the ethical and professional issues associated with the database development process.', 810,
+        'Fundamentals of Databases');
+INSERT INTO student.course (id, description, fee, title)
+VALUES (45, 'Develop your skills in report writing and presenting as you enhance your understanding of many aspects of computer science, including software engineering, computer networking, digital media, AI, cloud computing, sustainable computing and big data.', 410,
+        'Fundamentals of Computer Science');
+INSERT INTO student.course (id, description, fee, title)
+VALUES (46, 'Examine the principles involved in making information sharing possible, efficient and secure. You will gain an understanding of the techniques that networking protocols use to achieve successful communication, including error detection and recovery, multiplexing and security protection.', 440,
+        'Computer Communications');
+INSERT INTO student.course (id, description, fee, title)
+VALUES (47, 'Gain an insight into computers, operating systems and networks - discover how they work internally and how they work with each other to provide the common computing experience with which we are all familiar.', 670,
+        'Computing Systems');
+INSERT INTO student.course (id, description, fee, title)
+VALUES (48, 'Undertake a number of short projects, which will introduce you to the course philosophy and your wider course community. You will explore some of the key principles of idea generation, problem-solving and communication in new and unexpected learning scenarios and develop strategies to initiate work.', 740,
+        'Introduction to Graphic Design');
+INSERT INTO student.course (id, description, fee, title)
+VALUES (49, 'Investigate some of the fundamental building blocks of graphic design through a series of short projects, designed to build on your existing skills and introduce you to new ones. You will take part in a range of workshops and learning activities, which will support the integration of process skills into your project work.', 770,
+        'Graphic Design Processes');
+INSERT INTO student.course (id, description, fee, title)
+VALUES (50, 'Investigate, interpret and analyse images, combinations of image and text as well as sequential and moving image forms through a theoretical and practical application of semiotics. You will develop an appreciation of different communication models and their relevance to understanding the functions of visual communication in general.', 360,
+        'Visual Literacy');
+
 
 INSERT INTO student.enrolment (course_id, student_id)
 VALUES (1, 2);
