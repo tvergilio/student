@@ -139,12 +139,107 @@ class CourseServiceTest extends TestBase {
         verify(enrolmentService, times(1)).createEnrolment((Student) result.getModel().get("student"), course3);
     }
 
-
     @Test
     void testEnrolInCourse_userIsStudent_alreadyEnrolled_throwsException() {
         assertThrows(EnrolmentAlreadyExistsException.class, () -> courseService.enrolInCourse(course2.getId(), userStudent),
                 "Exception was not thrown.");
 
+    }
+
+    @Test
+    void testSearch_withFullTitle_returnsCourse() {
+        ModelAndView result = courseService.searchCourses("Software Engineering for Service Computing");
+        assertEquals(result.getViewName(), "courses");
+        assertNotNull(result.getModel());
+        assertEquals(1, result.getModel().size());
+        Object coursesReturned = result.getModel().get("courses");
+        if (coursesReturned instanceof List<?>) {
+            assertTrue(((List<?>) coursesReturned).contains(course1));
+        }
+    }
+
+    @Test
+    void testSearch_withTitleSubstring_returnsCourse() {
+        ModelAndView result = courseService.searchCourses("Service Computing");
+        assertEquals(result.getViewName(), "courses");
+        assertNotNull(result.getModel());
+        assertEquals(1, result.getModel().size());
+        Object coursesReturned = result.getModel().get("courses");
+        if (coursesReturned instanceof List<?>) {
+            assertTrue(((List<?>) coursesReturned).contains(course1));
+        }
+    }
+
+    @Test
+    void testSearch_withDescriptionSubstring_returnsCourse() {
+        ModelAndView result = courseService.searchCourses("This module provides an in-depth");
+        assertEquals(result.getViewName(), "courses");
+        assertNotNull(result.getModel());
+        assertEquals(1, result.getModel().size());
+        Object coursesReturned = result.getModel().get("courses");
+        if (coursesReturned instanceof List<?>) {
+            assertTrue(((List<?>) coursesReturned).contains(course1));
+        }
+    }
+
+    @Test
+    void testSearch_withWordFromDescription_returnsCourse() {
+        ModelAndView result = courseService.searchCourses("specifically");
+        assertEquals(result.getViewName(), "courses");
+        assertNotNull(result.getModel());
+        assertEquals(1, result.getModel().size());
+        Object coursesReturned = result.getModel().get("courses");
+        if (coursesReturned instanceof List<?>) {
+            assertTrue(((List<?>) coursesReturned).contains(course1));
+        }
+    }
+
+    @Test
+    void testSearch_withWordsFromTitleAndDescription_returnsCourse() {
+        ModelAndView result = courseService.searchCourses("Engineering recent modular");
+        assertEquals(result.getViewName(), "courses");
+        assertNotNull(result.getModel());
+        assertEquals(1, result.getModel().size());
+        Object coursesReturned = result.getModel().get("courses");
+        if (coursesReturned instanceof List<?>) {
+            assertTrue(((List<?>) coursesReturned).contains(course1));
+        }
+    }
+
+    @Test
+    void testSearch_withWordNotInTitleOrDescription_returnsNothing() {
+        ModelAndView result = courseService.searchCourses("Rampage");
+        assertEquals(result.getViewName(), "courses");
+        assertNotNull(result.getModel());
+        assertEquals(1, result.getModel().size());
+        Object coursesReturned = result.getModel().get("courses");
+        if (coursesReturned instanceof List<?>) {
+            assertTrue(((List<?>) coursesReturned).isEmpty());
+        }
+    }
+
+    @Test
+    void testSearch_withEmptyString_returnsNothing() {
+        ModelAndView result = courseService.searchCourses("");
+        assertEquals(result.getViewName(), "courses");
+        assertNotNull(result.getModel());
+        assertEquals(1, result.getModel().size());
+        Object coursesReturned = result.getModel().get("courses");
+        if (coursesReturned instanceof List<?>) {
+            assertTrue(((List<?>) coursesReturned).isEmpty());
+        }
+    }
+
+    @Test
+    void testSearch_withNull_returnsNothing() {
+        ModelAndView result = courseService.searchCourses(null);
+        assertEquals(result.getViewName(), "courses");
+        assertNotNull(result.getModel());
+        assertEquals(1, result.getModel().size());
+        Object coursesReturned = result.getModel().get("courses");
+        if (coursesReturned instanceof List<?>) {
+            assertTrue(((List<?>) coursesReturned).isEmpty());
+        }
     }
 
 }

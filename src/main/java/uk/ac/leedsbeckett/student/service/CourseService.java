@@ -45,6 +45,13 @@ public class CourseService {
         return getModelAndView(true);
     }
 
+    public ModelAndView searchCourses(String searchString) {
+        ModelAndView modelAndView = new ModelAndView("courses");
+        List<Course> courses = courseRepository.search(searchString);
+        modelAndView.addObject("courses", courses);
+        return modelAndView;
+    }
+
     private ModelAndView getModelAndView(boolean isEnrolled) {
         ModelAndView modelAndView = new ModelAndView("course");
         modelAndView.addObject("course", course);
@@ -56,13 +63,6 @@ public class CourseService {
     private void populateStudentAndCourse(User user, Long courseId) {
         student = userService.findStudentFromUser(user);
         course = courseRepository.findById(courseId).orElseThrow(CourseNotFoundException::new);
-    }
-
-    public ModelAndView searchCourses(String searchString) {
-        ModelAndView modelAndView = new ModelAndView("courses");
-        List<Course> courses = courseRepository.search(searchString);
-        modelAndView.addObject("courses", courses);
-        return modelAndView;
     }
 
 }

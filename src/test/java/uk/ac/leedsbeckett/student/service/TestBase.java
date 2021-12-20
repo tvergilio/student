@@ -91,9 +91,9 @@ public class TestBase {
         Mockito.doNothing().when(userService).createStudentFromUser(userNotStudent);
         Mockito.when(courseRepository.search("Software Engineering for Service Computing"))
                 .thenReturn(Arrays.asList(course1));
-        Mockito.when(courseRepository.search("Service-Oriented"))
+        Mockito.when(courseRepository.search("Service Computing"))
                 .thenReturn(Arrays.asList(course1));
-        Mockito.when(courseRepository.search("paradigm"))
+        Mockito.when(courseRepository.search("This module provides an in-depth"))
                 .thenReturn(Arrays.asList(course1));
         Mockito.when(courseRepository.search("specifically"))
                 .thenReturn(Arrays.asList(course1));
