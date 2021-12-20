@@ -6,13 +6,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import uk.ac.leedsbeckett.student.exception.EnrolmentAlreadyExistsException;
 import uk.ac.leedsbeckett.student.model.*;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class TestBase {
+import static org.mockito.AdditionalAnswers.returnsFirstArg;
+
+public class CourseServiceTestBase {
 
     @MockBean
     protected CourseRepository courseRepository;
@@ -81,6 +84,8 @@ public class TestBase {
                 .thenReturn(null);
         Mockito.when(enrolmentService.findEnrolment(course2, student))
                 .thenReturn(enrolment);
+        Mockito.when(enrolmentService.createEnrolment(student, course2))
+                .thenThrow(new EnrolmentAlreadyExistsException());
         Mockito.when(userService.findStudentFromUser(userStudent))
                 .thenReturn(student);
         Mockito.when(userService.findStudentFromUser(userNotStudent))
@@ -88,7 +93,8 @@ public class TestBase {
         Mockito.when(userService.findStudentFromUser(userToBecomeStudent))
                 .thenReturn(null)
                 .thenReturn(createdStudent);
-        Mockito.doNothing().when(userService).createStudentFromUser(userNotStudent);
+        Mockito.when(userService.createStudentFromUser(userNotStudent))
+                .then(returnsFirstArg());
         Mockito.when(courseRepository.search("Software Engineering for Service Computing"))
                 .thenReturn(Arrays.asList(course1));
         Mockito.when(courseRepository.search("Service Computing"))
