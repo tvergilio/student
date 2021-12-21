@@ -11,6 +11,7 @@ import uk.ac.leedsbeckett.student.exception.EnrolmentAlreadyExistsException;
 import uk.ac.leedsbeckett.student.model.Course;
 import uk.ac.leedsbeckett.student.model.Student;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -42,7 +43,7 @@ class CourseServiceTest extends CourseServiceTestBase {
         assertEquals(3, result.getModel().size());
         Object courseReturned = result.getModel().get("course");
         if (courseReturned instanceof Course) {
-            assertEquals(course1, (Course) courseReturned);
+            assertEquals(course1, courseReturned);
         }
         Object studentReturned = result.getModel().get("student");
         if (studentReturned instanceof Student) {
@@ -59,7 +60,7 @@ class CourseServiceTest extends CourseServiceTestBase {
         assertEquals(3, result.getModel().size());
         Object courseReturned = result.getModel().get("course");
         if (courseReturned instanceof Course) {
-            assertEquals(course2, (Course) courseReturned);
+            assertEquals(course2, courseReturned);
         }
         Object studentReturned = result.getModel().get("student");
         if (studentReturned instanceof Student) {
@@ -76,7 +77,7 @@ class CourseServiceTest extends CourseServiceTestBase {
         assertEquals(3, result.getModel().size());
         Object courseReturned = result.getModel().get("course");
         if (courseReturned instanceof Course) {
-            assertEquals(course1, (Course) courseReturned);
+            assertEquals(course1, courseReturned);
         }
         Object studentReturned = result.getModel().get("student");
         assertNull(studentReturned);
@@ -90,8 +91,26 @@ class CourseServiceTest extends CourseServiceTestBase {
     }
 
     @Test
+    void testGetCourse_idDoesNotExist_throwsCourseNotFoundException() {
+        assertThrows(CourseNotFoundException.class, () -> courseService.getCourse(999L, userNotStudent),
+                "Exception was not thrown.");
+    }
+
+    @Test
     void testGetCourse_idIsNull_throwsCourseNotFoundException() {
-        assertThrows(CourseNotFoundException.class, () -> courseService.getCourse(null, userNotStudent),
+        assertThrows(ConstraintViolationException.class, () -> courseService.getCourse(null, userNotStudent),
+                "Exception was not thrown.");
+    }
+
+    @Test
+    void testGetCourse_userIsNull_throwsConstraintViolationException() {
+        assertThrows(ConstraintViolationException.class, () -> courseService.getCourse(1L, null),
+                "Exception was not thrown.");
+    }
+
+    @Test
+    void testGetCourse_userAndIdAreNull_throwsConstraintViolationException() {
+        assertThrows(ConstraintViolationException.class, () -> courseService.getCourse(null, null),
                 "Exception was not thrown.");
     }
 
@@ -103,7 +122,7 @@ class CourseServiceTest extends CourseServiceTestBase {
         assertEquals(3, result.getModel().size());
         Object courseReturned = result.getModel().get("course");
         if (courseReturned instanceof Course) {
-            assertEquals(course3, (Course) courseReturned);
+            assertEquals(course3, courseReturned);
         }
         Object studentReturned = result.getModel().get("student");
         if (studentReturned instanceof Student) {
@@ -121,7 +140,7 @@ class CourseServiceTest extends CourseServiceTestBase {
         assertEquals(3, result.getModel().size());
         Object courseReturned = result.getModel().get("course");
         if (courseReturned instanceof Course) {
-            assertEquals(course3, (Course) courseReturned);
+            assertEquals(course3, courseReturned);
         }
         assertNotNull(result.getModel().get("student"));
         assertTrue((Boolean) result.getModel().get("isEnrolled"));
@@ -133,7 +152,22 @@ class CourseServiceTest extends CourseServiceTestBase {
     void testEnrolInCourse_userIsStudent_alreadyEnrolled_throwsException() {
         assertThrows(EnrolmentAlreadyExistsException.class, () -> courseService.enrolInCourse(course2.getId(), userStudent),
                 "Exception was not thrown.");
+    }
 
+    @Test
+    void testEnrolInCourse_userIsNull_throwsConstraintViolationException() {
+        assertThrows(ConstraintViolationException.class, () -> courseService.enrolInCourse(course2.getId(), null),
+                "Exception was not thrown.");
+    }
+    @Test
+    void testEnrolInCourse_courseIdIsNull_throwsConstraintViolationException() {
+        assertThrows(ConstraintViolationException.class, () -> courseService.enrolInCourse(null, userStudent),
+                "Exception was not thrown.");
+    }
+    @Test
+    void testEnrolInCourse_courseIdAndUserAreNull_throwsConstraintViolationException() {
+        assertThrows(ConstraintViolationException.class, () -> courseService.enrolInCourse(null, null),
+                "Exception was not thrown.");
     }
 
     @Test

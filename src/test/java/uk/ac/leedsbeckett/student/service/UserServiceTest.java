@@ -10,6 +10,8 @@ import uk.ac.leedsbeckett.student.exception.StudentAlreadyExistsException;
 import uk.ac.leedsbeckett.student.model.Student;
 import uk.ac.leedsbeckett.student.model.User;
 
+import javax.validation.ConstraintViolationException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
@@ -48,9 +50,15 @@ class UserServiceTest extends UserServiceTestBase {
     }
 
     @Test
-    void testCreateStudentFromUser_whenNotStudent_createsNewStudent() {
-        User user = userService.createStudentFromUser(userNotStudent);
-        assertNotNull(user.getStudent());
+    void testFindStudentFromUser_whenUserIsNull_throwsConstraintViolationException() {
+        assertThrows(ConstraintViolationException.class, () -> userService.findStudentFromUser(null),
+                "Exception was not thrown.");
+    }
+
+    @Test
+    void testCreateStudentFromUser_whenUserIsNull_throwsConstraintViolationException() {
+        assertThrows(ConstraintViolationException.class, () -> userService.createStudentFromUser(null),
+                "Exception was not thrown.");
     }
 
     @Test

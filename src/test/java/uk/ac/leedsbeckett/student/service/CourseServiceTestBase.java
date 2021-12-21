@@ -58,6 +58,7 @@ public class CourseServiceTestBase {
         course3.setId(3L);
         course4.setId(4L);
         course5.setId(5L);
+        courseList = Arrays.asList(course1, course2, course3, course4, course5);
 
         userStudent = new User(faker.name().username(), Role.STUDENT, "user@gmail.com", faker.animal().name());
         userNotStudent = new User(faker.name().username(), Role.STUDENT, "uns@gmail.com", faker.animal().name());
@@ -70,8 +71,6 @@ public class CourseServiceTestBase {
     }
 
     protected void defineMockingBehaviour() {
-        courseList = Arrays.asList(course1, course2, course3, course4, course5);
-
         Mockito.when(courseRepository.findAll())
                 .thenReturn(courseList);
         Mockito.when(courseRepository.findById(course1.getId()))
@@ -96,15 +95,15 @@ public class CourseServiceTestBase {
         Mockito.when(userService.createStudentFromUser(userNotStudent))
                 .then(returnsFirstArg());
         Mockito.when(courseRepository.search("Software Engineering for Service Computing"))
-                .thenReturn(Arrays.asList(course1));
+                .thenReturn(List.of(course1));
         Mockito.when(courseRepository.search("Service Computing"))
-                .thenReturn(Arrays.asList(course1));
+                .thenReturn(List.of(course1));
         Mockito.when(courseRepository.search("This module provides an in-depth"))
-                .thenReturn(Arrays.asList(course1));
+                .thenReturn(List.of(course1));
         Mockito.when(courseRepository.search("specifically"))
-                .thenReturn(Arrays.asList(course1));
+                .thenReturn(List.of(course1));
         Mockito.when(courseRepository.search("Engineering recent modular"))
-                .thenReturn(Arrays.asList(course1));
+                .thenReturn(List.of(course1));
     }
 
     @AfterEach

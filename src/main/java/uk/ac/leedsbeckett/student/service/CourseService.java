@@ -1,12 +1,15 @@
 package uk.ac.leedsbeckett.student.service;
 
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.servlet.ModelAndView;
 import uk.ac.leedsbeckett.student.exception.CourseNotFoundException;
 import uk.ac.leedsbeckett.student.model.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@Validated
 @Component
 public class CourseService {
 
@@ -29,13 +32,13 @@ public class CourseService {
         return modelAndView;
     }
 
-    public ModelAndView getCourse(Long id, User user) {
+    public ModelAndView getCourse(@NotNull Long id, @NotNull User user) {
         populateStudentAndCourse(user, id);
         Enrolment existingEnrolment = enrolmentService.findEnrolment(course, student);
         return getModelAndView(existingEnrolment != null);
     }
 
-    public ModelAndView enrolInCourse(Long id, User user) {
+    public ModelAndView enrolInCourse(@NotNull Long id, @NotNull User user) {
         populateStudentAndCourse(user, id);
         if (student == null) {
             userService.createStudentFromUser(user);

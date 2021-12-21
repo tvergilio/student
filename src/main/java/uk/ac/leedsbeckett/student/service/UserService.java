@@ -4,12 +4,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 import uk.ac.leedsbeckett.student.exception.StudentAlreadyExistsException;
 import uk.ac.leedsbeckett.student.model.Student;
 import uk.ac.leedsbeckett.student.model.StudentRepository;
 import uk.ac.leedsbeckett.student.model.User;
 import uk.ac.leedsbeckett.student.model.UserRepository;
 
+import javax.validation.constraints.NotNull;
+
+@Validated
 @Component
 public class UserService {
 
@@ -38,11 +42,11 @@ public class UserService {
         return user;
     }
 
-    public Student findStudentFromUser(User user) {
+    public Student findStudentFromUser(@NotNull User user) {
         return studentRepository.findByUserId(user.getId());
     }
 
-    public User createStudentFromUser(User user) {
+    public User createStudentFromUser(@NotNull User user) {
         if (studentRepository.findByUserId(user.getId()) != null) {
             throw new StudentAlreadyExistsException(user.getUserName());
         }
