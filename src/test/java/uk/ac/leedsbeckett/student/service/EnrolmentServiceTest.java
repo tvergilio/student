@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.servlet.ModelAndView;
+import uk.ac.leedsbeckett.student.exception.EnrolmentAlreadyExistsException;
 import uk.ac.leedsbeckett.student.model.Enrolment;
 
 import javax.validation.ConstraintViolationException;
@@ -103,5 +104,30 @@ class EnrolmentServiceTest extends EnrolmentServiceTestBase {
         assertEquals(studentNoEnrollments, result.getStudent());
         assertEquals(course1, result.getCourse());
     }
+
+    @Test
+    void testCreateEnrolment_whenEnrolmentAlreadyExists_throwsEnrolmentAlreadyExistsException() {
+        assertThrows(EnrolmentAlreadyExistsException.class, () -> enrolmentService.createEnrolment(studentOneEnrollment, course1),
+                "Exception was not thrown.");
+    }
+
+    @Test
+    void testCreateEnrolment_whenStudentIsNull_throwsConstraintViolationException() {
+        assertThrows(ConstraintViolationException.class, () -> enrolmentService.createEnrolment(null, course1),
+                "Exception was not thrown.");
+    }
+
+    @Test
+    void testCreateEnrolment_whenCourseIsNull_throwsConstraintViolationException() {
+        assertThrows(ConstraintViolationException.class, () -> enrolmentService.createEnrolment(studentNoEnrollments, null),
+                "Exception was not thrown.");
+    }
+
+    @Test
+    void testCreateEnrolment_whenStudentAndCourseAreNull_throwsConstraintViolationException() {
+        assertThrows(ConstraintViolationException.class, () -> enrolmentService.createEnrolment(null, null),
+                "Exception was not thrown.");
+    }
+
 
 }
