@@ -4,9 +4,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.servlet.ModelAndView;
 import uk.ac.leedsbeckett.student.model.*;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+@Validated
 @Component
 public class PortalService implements UserDetailsService {
 
@@ -25,7 +30,7 @@ public class PortalService implements UserDetailsService {
         return new PortalUserDetails(user);
     }
 
-    public ModelAndView loadPortalUserDetails(User user, Student student, String view) {
+    public ModelAndView loadPortalUserDetails(User user, Student student, @NotNull @NotEmpty String view) {
         if (user == null) {
             return new ModelAndView("redirect:/login");
         }
