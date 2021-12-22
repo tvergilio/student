@@ -24,7 +24,7 @@ public class ProfileController {
 
     @GetMapping("/editProfile/{id}")
     public ModelAndView editProfile(@PathVariable Long id) {
-        return profileService.editProfile(id);
+        return profileService.getProfileToEdit(id);
     }
 
     @PostMapping("/editProfile")

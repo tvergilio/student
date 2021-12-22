@@ -1,12 +1,18 @@
 package uk.ac.leedsbeckett.student.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.servlet.ModelAndView;
 import uk.ac.leedsbeckett.student.exception.StudentNotFoundException;
 import uk.ac.leedsbeckett.student.model.Student;
 import uk.ac.leedsbeckett.student.model.StudentRepository;
 import uk.ac.leedsbeckett.student.model.User;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+@Validated
 @Component
 public class ProfileService {
 
@@ -18,30 +24,35 @@ public class ProfileService {
         this.studentRepository = studentRepository;
     }
 
-    public ModelAndView getProfile(User user, Student student, String view) {
+    public ModelAndView getProfile(User user, Student student, @NotNull @NotEmpty String view) {
         return portalService.loadPortalUserDetails(user, student, view);
     }
 
-    public ModelAndView editProfile(Long studentId) {
+    public ModelAndView getProfileToEdit(Long studentId) {
         Student student = studentRepository.findById(studentId).orElseThrow(StudentNotFoundException::new);
         ModelAndView modelAndView = new ModelAndView("profile-edit");
         modelAndView.addObject("student", student);
         return modelAndView;
     }
 
-    public ModelAndView editProfile(Student student) {
-        Student existingStudent = studentRepository.findById(student.getId()).orElseThrow(StudentNotFoundException::new);
-        if (student.getForename() != null && !student.getForename().isEmpty()) {
-            existingStudent.setForename(student.getForename());
+    public ModelAndView editProfile(Student providedStudent) {
+        Student studentFromDatabase = studentRepository.findById(providedStudent.getId()).orElseThrow(StudentNotFoundException::new);
+        Student studentToSave = new Student();
+        BeanUtils.copyProperties(studentFromDatabase, studentToSave);
+
+        if (providedStudent.getForename() != null && !providedStudent.getForename().isEmpty()) {
+            studentToSave.setForename(providedStudent.getForename());
         }
-        if (student.getSurname() != null && !student.getSurname().isEmpty()) {
-            existingStudent.setSurname(student.getSurname());
+        if (providedStudent.getSurname() != null && !providedStudent.getSurname().isEmpty()) {
+            studentToSave.setSurname(providedStudent.getSurname());
         }
-        studentRepository.saveAndFlush(existingStudent);
+        Boolean changed = !studentFromDatabase.equals(studentToSave);
+        Student returnedStudent = studentRepository.saveAndFlush(studentToSave);
         ModelAndView modelAndView = new ModelAndView("profile");
-        modelAndView.addObject("student", existingStudent);
+        modelAndView.addObject("student", returnedStudent);
         modelAndView.addObject("isStudent", true);
-        modelAndView.addObject("message", "Profile updated");
+        modelAndView.addObject("updated", changed);
+        modelAndView.addObject("message", changed ? "Profile updated" : "Profile not updated");
         return modelAndView;
     }
 }

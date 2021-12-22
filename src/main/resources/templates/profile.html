@@ -18,7 +18,7 @@
     </th:block>
 </div>
 <div class="container container-fluid">
-    <div id="alert" th:if="${message}" th:text="${message}" th:class="${'alert alert-success w-25'}"></div>
+    <div id="alert" th:if="${message}" th:text="${message}" th:class="${updated ? 'alert alert-success w-25' : 'alert alert-warning w-25'}"></div>
 </div>
 <div th:replace="fragments/footer"></div>
 </body>
