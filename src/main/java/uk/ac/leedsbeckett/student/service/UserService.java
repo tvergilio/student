@@ -31,7 +31,7 @@ public class UserService {
     }
 
     public User getLoggedInUser() {
-        if (securityContext == null) {
+        if (securityContext == null || securityContext.getAuthentication() == null) {
             setSecurityContext(SecurityContextHolder.getContext());
         }
         Authentication authentication = securityContext.getAuthentication();

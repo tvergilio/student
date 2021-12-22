@@ -9,6 +9,7 @@ import uk.ac.leedsbeckett.student.model.Enrolment;
 import uk.ac.leedsbeckett.student.model.EnrolmentRepository;
 import uk.ac.leedsbeckett.student.model.Student;
 
+import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +32,7 @@ public class EnrolmentService {
         return enrolmentRepository.save(enrolment);
     }
 
-    public Enrolment findEnrolment(@NotNull Course course, @NotNull Student student) {
+    public Enrolment findEnrolment(@NotNull Course course, @Nullable Student student) {
         return enrolmentRepository.findEnrolmentByCourseAndStudent(course, student);
     }
 

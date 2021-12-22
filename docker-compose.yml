@@ -24,7 +24,7 @@ services:
   app:
     image: tvergilio/student:1.0
     environment:
-      spring.datasource.url: jdbc:mariadb://db:3307/${DB_NAME}
+      spring.datasource.url: jdbc:mariadb://db:3306/${DB_NAME}
       spring.datasource.username: ${DB_APPLICATION_USER}
       spring.datasource.password: ${DB_APPLICATION_PASSWORD}
     ports:

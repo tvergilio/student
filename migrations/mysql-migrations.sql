@@ -4,6 +4,7 @@ SET GLOBAL general_log = 1;
 drop schema if exists student;
 create schema student;
 use student;
+ALTER DATABASE student CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 create table course
 (
