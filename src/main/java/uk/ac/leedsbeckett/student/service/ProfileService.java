@@ -38,6 +38,7 @@ public class ProfileService {
     public ModelAndView editProfile(Student providedStudent) {
         Student studentFromDatabase = studentRepository.findById(providedStudent.getId()).orElseThrow(StudentNotFoundException::new);
         Student studentToSave = new Student();
+        studentToSave.populateStudentId();
         BeanUtils.copyProperties(studentFromDatabase, studentToSave);
 
         if (providedStudent.getForename() != null && !providedStudent.getForename().isEmpty()) {

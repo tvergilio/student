@@ -23,31 +23,31 @@ class EnrolmentServiceTest extends EnrolmentServiceTestBase {
 
     @Test
     void testFindEnrolment_whenManyEnrolmentsExist_returnsCorrectEnrolment() {
-        Enrolment result = enrolmentService.findEnrolment(course1, studentManyEnrollments);
+        Enrolment result = enrolmentService.findEnrolment(course1, studentManyEnrolments);
         assertEquals(enrolment1, result);
     }
 
     @Test
     void testFindEnrolment_whenOneEnrolmentExist_returnsCorrectEnrolment() {
-        Enrolment result = enrolmentService.findEnrolment(course1, studentOneEnrollment);
+        Enrolment result = enrolmentService.findEnrolment(course1, studentOneEnrolment);
         assertEquals(enrolment5, result);
     }
 
     @Test
     void testFindEnrolment_whenNoEnrolmentsExist_returnsNoEnrolment() {
-        Enrolment result = enrolmentService.findEnrolment(course1, studentNoEnrollments);
+        Enrolment result = enrolmentService.findEnrolment(course1, studentNoEnrolments);
         assertNull(result);
     }
 
     @Test
     void testFindEnrolment_whenCourseIsNull_throwsConstraintViolationException() {
-        assertThrows(ConstraintViolationException.class, () -> enrolmentService.findEnrolment(null, studentNoEnrollments),
+        assertThrows(ConstraintViolationException.class, () -> enrolmentService.findEnrolment(null, studentNoEnrolments),
                 "Exception was not thrown.");
     }
 
     @Test
     void testGetEnrolments_whenManyEnrolmentsExist_returnsCorrectEnrolments() {
-        ModelAndView result = enrolmentService.getEnrolments(studentManyEnrollments);
+        ModelAndView result = enrolmentService.getEnrolments(studentManyEnrolments);
         assertEquals(result.getViewName(), "courses");
         assertNotNull(result.getModel());
         assertEquals(1, result.getModel().size());
@@ -64,7 +64,7 @@ class EnrolmentServiceTest extends EnrolmentServiceTestBase {
 
     @Test
     void testGetEnrolments_whenOneEnrolmentExists_returnsCorrectEnrolment() {
-        ModelAndView result = enrolmentService.getEnrolments(studentOneEnrollment);
+        ModelAndView result = enrolmentService.getEnrolments(studentOneEnrolment);
         assertEquals(result.getViewName(), "courses");
         assertNotNull(result.getModel());
         assertEquals(1, result.getModel().size());
@@ -81,7 +81,7 @@ class EnrolmentServiceTest extends EnrolmentServiceTestBase {
 
     @Test
     void testGetEnrolments_whenNoEnrolmentsExist_returnsNoEnrolments() {
-        ModelAndView result = enrolmentService.getEnrolments(studentNoEnrollments);
+        ModelAndView result = enrolmentService.getEnrolments(studentNoEnrolments);
         assertEquals(result.getViewName(), "courses");
         assertNotNull(result.getModel());
         assertEquals(1, result.getModel().size());
@@ -99,15 +99,15 @@ class EnrolmentServiceTest extends EnrolmentServiceTestBase {
 
     @Test
     void testCreateEnrolment_whenEnrolmentDoesNotExist_createsEnrolment() {
-        Enrolment result = enrolmentService.createEnrolment(studentNoEnrollments, course1);
+        Enrolment result = enrolmentService.createEnrolment(studentNoEnrolments, course1);
         verify(enrolmentRepository, times(1)).save(result);
-        assertEquals(studentNoEnrollments, result.getStudent());
+        assertEquals(studentNoEnrolments, result.getStudent());
         assertEquals(course1, result.getCourse());
     }
 
     @Test
     void testCreateEnrolment_whenEnrolmentAlreadyExists_throwsEnrolmentAlreadyExistsException() {
-        assertThrows(EnrolmentAlreadyExistsException.class, () -> enrolmentService.createEnrolment(studentOneEnrollment, course1),
+        assertThrows(EnrolmentAlreadyExistsException.class, () -> enrolmentService.createEnrolment(studentOneEnrolment, course1),
                 "Exception was not thrown.");
     }
 
@@ -119,7 +119,7 @@ class EnrolmentServiceTest extends EnrolmentServiceTestBase {
 
     @Test
     void testCreateEnrolment_whenCourseIsNull_throwsConstraintViolationException() {
-        assertThrows(ConstraintViolationException.class, () -> enrolmentService.createEnrolment(studentNoEnrollments, null),
+        assertThrows(ConstraintViolationException.class, () -> enrolmentService.createEnrolment(studentNoEnrolments, null),
                 "Exception was not thrown.");
     }
 

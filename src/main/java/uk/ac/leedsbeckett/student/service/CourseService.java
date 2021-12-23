@@ -7,6 +7,7 @@ import uk.ac.leedsbeckett.student.exception.CourseNotFoundException;
 import uk.ac.leedsbeckett.student.model.*;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.List;
 
 @Validated
@@ -16,13 +17,15 @@ public class CourseService {
     private final CourseRepository courseRepository;
     private final EnrolmentService enrolmentService;
     private final UserService userService;
+    private final IntegrationService integrationService;
     private Student student;
     private Course course;
 
-    public CourseService(CourseRepository courseRepository, UserService userService, EnrolmentService enrolmentService) {
+    public CourseService(CourseRepository courseRepository, UserService userService, EnrolmentService enrolmentService, IntegrationService integrationService) {
         this.courseRepository = courseRepository;
         this.userService = userService;
         this.enrolmentService = enrolmentService;
+        this.integrationService = integrationService;
     }
 
     public ModelAndView getCourses() {
@@ -45,6 +48,7 @@ public class CourseService {
         }
         student = userService.findStudentFromUser(user);
         enrolmentService.createEnrolment(student, course);
+        notifySubscribers(student, course);
         return getModelAndView(true);
     }
 
@@ -66,6 +70,17 @@ public class CourseService {
     private void populateStudentAndCourse(User user, Long courseId) {
         student = userService.findStudentFromUser(user);
         course = courseRepository.findById(courseId).orElseThrow(CourseNotFoundException::new);
+    }
+
+    private void notifySubscribers(Student student, Course course) {
+        Account account = new Account();
+        account.setStudentId(student.getStudentId());
+        Invoice invoice = new Invoice();
+        invoice.setAccount(account);
+        invoice.setType(Invoice.Type.TUITION_FEES);
+        invoice.setAmount(course.getFee());
+        invoice.setDueDate(LocalDate.now().plusMonths(1));
+        integrationService.createCourseFeeInvoice(invoice);
     }
 
 }

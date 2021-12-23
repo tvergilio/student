@@ -28,9 +28,9 @@ public class EnrolmentServiceTestBase {
 
     protected Course course1, course2, course3, course4, course5;
     protected List<Enrolment> enrolmentList;
-    protected Student studentManyEnrollments;
-    protected Student studentOneEnrollment;
-    protected Student studentNoEnrollments;
+    protected Student studentManyEnrolments;
+    protected Student studentOneEnrolment;
+    protected Student studentNoEnrolments;
     protected Enrolment enrolment1;
     protected Enrolment enrolment2;
     protected Enrolment enrolment3;
@@ -58,37 +58,37 @@ public class EnrolmentServiceTestBase {
         course4.setId(4L);
         course5.setId(5L);
 
-        studentManyEnrollments = new Student(faker.name().firstName(), faker.name().lastName());
-        studentOneEnrollment = new Student(faker.name().firstName(), faker.name().lastName());
-        studentNoEnrollments = new Student(faker.name().firstName(), faker.name().lastName());
+        studentManyEnrolments = new Student(faker.name().firstName(), faker.name().lastName());
+        studentOneEnrolment = new Student(faker.name().firstName(), faker.name().lastName());
+        studentNoEnrolments = new Student(faker.name().firstName(), faker.name().lastName());
 
-        enrolment1 = new Enrolment(studentManyEnrollments, course1);
-        enrolment2 = new Enrolment(studentManyEnrollments, course2);
-        enrolment3 = new Enrolment(studentManyEnrollments, course3);
-        enrolment4 = new Enrolment(studentManyEnrollments, course4);
-        enrolment5 = new Enrolment(studentOneEnrollment, course1);
+        enrolment1 = new Enrolment(studentManyEnrolments, course1);
+        enrolment2 = new Enrolment(studentManyEnrolments, course2);
+        enrolment3 = new Enrolment(studentManyEnrolments, course3);
+        enrolment4 = new Enrolment(studentManyEnrolments, course4);
+        enrolment5 = new Enrolment(studentOneEnrolment, course1);
 
         enrolmentList = Arrays.asList(enrolment1, enrolment2, enrolment3, enrolment4);
     }
 
     protected void defineMockingBehaviour() {
-        Mockito.when(enrolmentRepository.findEnrolmentByCourseAndStudent(course1, studentManyEnrollments))
+        Mockito.when(enrolmentRepository.findEnrolmentByCourseAndStudent(course1, studentManyEnrolments))
                 .thenReturn(enrolment1);
-        Mockito.when(enrolmentRepository.findEnrolmentByCourseAndStudent(course2, studentManyEnrollments))
+        Mockito.when(enrolmentRepository.findEnrolmentByCourseAndStudent(course2, studentManyEnrolments))
                 .thenReturn(enrolment2);
-        Mockito.when(enrolmentRepository.findEnrolmentByCourseAndStudent(course3, studentManyEnrollments))
+        Mockito.when(enrolmentRepository.findEnrolmentByCourseAndStudent(course3, studentManyEnrolments))
                 .thenReturn(enrolment3);
-        Mockito.when(enrolmentRepository.findEnrolmentByCourseAndStudent(course4, studentManyEnrollments))
+        Mockito.when(enrolmentRepository.findEnrolmentByCourseAndStudent(course4, studentManyEnrolments))
                 .thenReturn(enrolment4);
-        Mockito.when(enrolmentRepository.findEnrolmentByCourseAndStudent(course1, studentOneEnrollment))
+        Mockito.when(enrolmentRepository.findEnrolmentByCourseAndStudent(course1, studentOneEnrolment))
                 .thenReturn(enrolment5);
         Mockito.when(enrolmentRepository.findEnrolmentByCourseAndStudent(eq(course5), any()))
                 .thenReturn(null);
-        Mockito.when(enrolmentRepository.findEnrolmentByStudent(studentManyEnrollments))
+        Mockito.when(enrolmentRepository.findEnrolmentByStudent(studentManyEnrolments))
                         .thenReturn(enrolmentList);
-        Mockito.when(enrolmentRepository.findEnrolmentByStudent(studentOneEnrollment))
+        Mockito.when(enrolmentRepository.findEnrolmentByStudent(studentOneEnrolment))
                         .thenReturn(List.of(enrolment5));
-        Mockito.when(enrolmentRepository.findEnrolmentByStudent(studentNoEnrollments))
+        Mockito.when(enrolmentRepository.findEnrolmentByStudent(studentNoEnrolments))
                         .thenReturn(new ArrayList<>());
         Mockito.when(enrolmentRepository.save(any(Enrolment.class)))
                 .then(returnsFirstArg());
@@ -98,9 +98,9 @@ public class EnrolmentServiceTestBase {
     public void tearDown() {
         enrolmentList.forEach(enrolment -> enrolment = null);
         enrolmentList = null;
-        studentManyEnrollments = null;
-        studentOneEnrollment = null;
-        studentNoEnrollments = null;
+        studentManyEnrolments = null;
+        studentOneEnrolment = null;
+        studentNoEnrolments = null;
         course1 = null;
         course2 = null;
         course3 = null;

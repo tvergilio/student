@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
+import static org.mockito.ArgumentMatchers.any;
 
 public class CourseServiceTestBase {
 
@@ -23,6 +24,8 @@ public class CourseServiceTestBase {
     protected UserService userService;
     @MockBean
     protected EnrolmentService enrolmentService;
+    @MockBean
+    protected IntegrationService integrationService;
     @Autowired
     protected CourseService courseService;
 
@@ -85,6 +88,10 @@ public class CourseServiceTestBase {
                 .thenReturn(enrolment);
         Mockito.when(enrolmentService.createEnrolment(student, course2))
                 .thenThrow(new EnrolmentAlreadyExistsException());
+        Mockito.doNothing()
+                .when(integrationService).createCourseFeeInvoice(any(Invoice.class));
+        Mockito.doNothing()
+                .when(integrationService).notifyStudentCreated(any(Account.class));
         Mockito.when(userService.findStudentFromUser(userStudent))
                 .thenReturn(student);
         Mockito.when(userService.findStudentFromUser(userNotStudent))

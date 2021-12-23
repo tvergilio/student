@@ -21,7 +21,7 @@ public class User {
     private String email;
     @Column(nullable = false, length = 64)
     private String password;
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinTable(name = "portal_user_student",
             joinColumns =
                     { @JoinColumn(name = "user_id", referencedColumnName = "id") },

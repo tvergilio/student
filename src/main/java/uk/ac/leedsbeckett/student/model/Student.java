@@ -30,7 +30,6 @@ public class Student {
     private User user;
 
     public Student() {
-        populateStudentId();
     }
 
     public Student(String forename, String surname) {

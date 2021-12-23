@@ -19,9 +19,11 @@ import java.util.stream.Collectors;
 public class EnrolmentService {
 
     private final EnrolmentRepository enrolmentRepository;
+    private final IntegrationService integrationService;
 
-    public EnrolmentService(EnrolmentRepository enrolmentRepository) {
+    public EnrolmentService(EnrolmentRepository enrolmentRepository, IntegrationService integrationService) {
         this.enrolmentRepository = enrolmentRepository;
+        this.integrationService = integrationService;
     }
 
     public Enrolment createEnrolment(@NotNull Student student, @NotNull Course course) {

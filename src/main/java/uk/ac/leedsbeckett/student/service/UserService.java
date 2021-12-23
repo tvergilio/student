@@ -6,10 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 import uk.ac.leedsbeckett.student.exception.StudentAlreadyExistsException;
-import uk.ac.leedsbeckett.student.model.Student;
-import uk.ac.leedsbeckett.student.model.StudentRepository;
-import uk.ac.leedsbeckett.student.model.User;
-import uk.ac.leedsbeckett.student.model.UserRepository;
+import uk.ac.leedsbeckett.student.model.*;
 
 import javax.validation.constraints.NotNull;
 
@@ -19,11 +16,13 @@ public class UserService {
 
     private final StudentRepository studentRepository;
     private final UserRepository userRepository;
+    private final IntegrationService integrationService;
     SecurityContext securityContext;
 
-    public UserService(StudentRepository studentRepository, UserRepository userRepository) {
+    public UserService(StudentRepository studentRepository, UserRepository userRepository, IntegrationService integrationService) {
         this.studentRepository = studentRepository;
         this.userRepository = userRepository;
+        this.integrationService = integrationService;
     }
 
     public void setSecurityContext(SecurityContext securityContext) {
@@ -51,7 +50,16 @@ public class UserService {
             throw new StudentAlreadyExistsException(user.getUserName());
         }
         Student student = new Student();
+        student.populateStudentId();
         user.setStudent(student);
-        return userRepository.saveAndFlush(user);
+        userRepository.saveAndFlush(user);
+        notifySubscribers(student);
+        return user;
+    }
+
+    private void notifySubscribers(Student student) {
+        Account account = new Account();
+        account.setStudentId(student.getStudentId());
+        integrationService.notifyStudentCreated(account);
     }
 }
