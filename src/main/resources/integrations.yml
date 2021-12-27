@@ -1,6 +1,13 @@
-student:
-  create: http://localhost:8081/accounts
-course:
-  enrol: http://localhost:8081/invoices
-account:
-  status: http://localhost:8081/accounts/student/
+finance:
+  host: finance_app:8081
+  student:
+    create: /accounts
+  course:
+    enrol: /invoices
+  account:
+    status: /accounts/student/
+
+#library:
+#  host: http://127.17.0.1:80
+#  student:
+#    create: /api/register

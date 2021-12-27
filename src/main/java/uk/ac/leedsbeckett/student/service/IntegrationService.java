@@ -10,20 +10,19 @@ import uk.ac.leedsbeckett.student.model.Invoice;
 import uk.ac.leedsbeckett.student.model.Student;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Component
 @PropertySource(value = "classpath:integrations.yml", factory = YamlSourceFactory.class)
 public class IntegrationService {
 
     private final RestTemplate restTemplate;
-    @Value("${student.create}")
-    private String[] studentCreationSubscribers;
-    @Value("${course.enrol}")
-    private String courseEnrolmentSubscriber;
-    @Value("${account.status}")
+    @Value("${finance.host}")
+    private String financeHost;
+    @Value("${finance.student.create}")
+    private String studentCreatedFinanceSubscriber;
+    @Value("${finance.course.enrol}")
+    private String courseEnrolmentFinanceSubscriber;
+    @Value("${finance.account.status}")
     private String accountStatusPublisher;
 
     public IntegrationService(RestTemplate restTemplate) {
@@ -31,15 +30,14 @@ public class IntegrationService {
     }
 
     public void notifyStudentCreated(@NotNull Account account) {
-        List<Account> responses = Stream.of(studentCreationSubscribers)
-                .map(subscriber -> restTemplate.postForObject(subscriber, account, Account.class))
-                .collect(Collectors.toList());
+        Account response = restTemplate.postForObject(financeHost + studentCreatedFinanceSubscriber, account, Account.class);
     }
 
     public Invoice createCourseFeeInvoice(@NotNull Invoice invoice) {
-        return restTemplate.postForObject(courseEnrolmentSubscriber, invoice, Invoice.class);
+        return restTemplate.postForObject(financeHost + courseEnrolmentFinanceSubscriber, invoice, Invoice.class);
     }
+
     public Account getStudentPaymentStatus(@NotNull Student student) {
-        return restTemplate.getForObject(accountStatusPublisher + student.getStudentId(), Account.class);
+        return restTemplate.getForObject(financeHost + accountStatusPublisher + student.getStudentId(), Account.class);
     }
 }

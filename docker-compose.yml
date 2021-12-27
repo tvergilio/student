@@ -1,12 +1,15 @@
 version: '2'
 
 networks:
-  student:
+  default:
+    external: true
+    name: finance_default
 
 services:
 
   db:
     image: mariadb
+    container_name: student_db
     restart: always
     volumes:
       - ./migrations/mysql-migrations.sql:/docker-entrypoint-initdb.d/mysql-mysql-migrations.sql
@@ -15,7 +18,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
     networks:
-      - student
+      - default
     healthcheck:
       test: "/usr/bin/mysql --user=root --password=$$MYSQL_ROOT_PASSWORD --execute \"SHOW DATABASES;\""
       timeout: 2s
@@ -23,6 +26,7 @@ services:
 
   app:
     image: tvergilio/student:1.0
+    container_name: student_app
     environment:
       spring.datasource.url: jdbc:mariadb://db:3306/${DB_NAME}
       spring.datasource.username: ${DB_APPLICATION_USER}
@@ -35,4 +39,4 @@ services:
       db:
         condition: service_healthy
     networks:
-      - student
+      - default
