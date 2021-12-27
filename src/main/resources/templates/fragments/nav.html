@@ -20,6 +20,9 @@
                 <li class="nav-item" th:if="${isStudent}">
                     <a class="nav-link" th:href="@{/profile}">Student Profile</a>
                 </li>
+                <li class="nav-item" th:if="${isStudent}">
+                    <a class="nav-link" th:href="@{/graduation}">Graduation</a>
+                </li>
                 <li class="nav-item">
                     <form name="logout" th:action="@{/logout}" method="post">
                         <a class="nav-link" href="#" onclick="document.forms['logout'].submit();">

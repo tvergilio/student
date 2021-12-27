@@ -67,7 +67,7 @@ public class CourseService {
         modelAndView.addObject("isEnrolled", isEnrolled);
         StringBuilder message = new StringBuilder("You are enrolled in this course.");
         if (invoice != null && invoice.getReference() != null && !invoice.getReference().isEmpty()) {
-            message.append(" Please log into the Finance Portal to pay the invoice reference: ")
+            message.append(" Please log into the Payment Portal to pay the invoice reference: ")
                     .append(invoice.getReference())
                     .append(".");
         }

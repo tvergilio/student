@@ -7,6 +7,7 @@ import org.springframework.web.client.RestTemplate;
 import uk.ac.leedsbeckett.student.YamlSourceFactory;
 import uk.ac.leedsbeckett.student.model.Account;
 import uk.ac.leedsbeckett.student.model.Invoice;
+import uk.ac.leedsbeckett.student.model.Student;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -22,6 +23,8 @@ public class IntegrationService {
     private String[] studentCreationSubscribers;
     @Value("${course.enrol}")
     private String courseEnrolmentSubscriber;
+    @Value("${account.status}")
+    private String accountStatusPublisher;
 
     public IntegrationService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
@@ -35,5 +38,8 @@ public class IntegrationService {
 
     public Invoice createCourseFeeInvoice(@NotNull Invoice invoice) {
         return restTemplate.postForObject(courseEnrolmentSubscriber, invoice, Invoice.class);
+    }
+    public Account getStudentPaymentStatus(@NotNull Student student) {
+        return restTemplate.getForObject(accountStatusPublisher + student.getStudentId(), Account.class);
     }
 }

@@ -130,7 +130,7 @@ class CourseServiceTest extends CourseServiceTestBase {
             assertEquals(student, studentReturned);
         }
         assertTrue((Boolean) result.getModel().get("isEnrolled"));
-        assertTrue(result.getModel().get("message").toString().contains("Please log into the Finance Portal to pay the invoice reference: "));
+        assertTrue(result.getModel().get("message").toString().contains("Please log into the Payment Portal to pay the invoice reference: "));
         assertTrue(result.getModel().get("message").toString().contains(invoice.getReference()));
         verify(enrolmentService, times(1)).createEnrolment(student, course3);
     }
