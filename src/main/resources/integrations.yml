@@ -1,5 +1,5 @@
 finance:
-  host: finance_app:8081
+  host: http://financeapp:8081
   student:
     create: /accounts
   course:

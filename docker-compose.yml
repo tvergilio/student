@@ -7,9 +7,8 @@ networks:
 
 services:
 
-  db:
+  studentdb:
     image: mariadb
-    container_name: student_db
     restart: always
     volumes:
       - ./migrations/mysql-migrations.sql:/docker-entrypoint-initdb.d/mysql-mysql-migrations.sql
@@ -24,11 +23,10 @@ services:
       timeout: 2s
       retries: 10
 
-  app:
+  studentapp:
     image: tvergilio/student:1.0
-    container_name: student_app
     environment:
-      spring.datasource.url: jdbc:mariadb://db:3306/${DB_NAME}
+      spring.datasource.url: jdbc:mariadb://studentdb:3306/${DB_NAME}
       spring.datasource.username: ${DB_APPLICATION_USER}
       spring.datasource.password: ${DB_APPLICATION_PASSWORD}
     ports:
@@ -36,7 +34,7 @@ services:
     expose:
       - "8090"
     depends_on:
-      db:
+      studentdb:
         condition: service_healthy
     networks:
       - default
