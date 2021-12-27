@@ -4,7 +4,6 @@ SET GLOBAL general_log = 1;
 drop schema if exists student;
 create schema student;
 use student;
-ALTER DATABASE student CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 create table course
 (
@@ -72,46 +71,46 @@ INSERT INTO student.course (id, description, fee, title)
 VALUES (3, 'An intermediate course on how to make the most of Spring Boot''s latest functionality.', 200,
         'Spring Boot');
 INSERT INTO student.course (id, description, fee, title)
-VALUES (4, 'Gain an in-depth understanding of the ‘Internet of Things’ paradigm and how smart devices can be designed and deployed for a connected world.',650,
+VALUES (4, 'Gain an in-depth understanding of the ''Internet of Things'' paradigm and how smart devices can be designed and deployed for a connected world.',650,
         'Smart Systems');
 INSERT INTO student.course (id, description, fee, title)
-VALUES (5, 'Develop an awareness of the methods and skills required to carry out Masters level research successfully. You’ll reflect critically on your own development in the context of your chosen programme of study.',550,
+VALUES (5, 'Develop an awareness of the methods and skills required to carry out Masters level research successfully. You''ll reflect critically on your own development in the context of your chosen programme of study.',550,
         'Research Practice');
 INSERT INTO student.course (id, description, fee, title)
-VALUES (6, 'Develop your knowledge so you can initiate, plan, execute, manage and sign off a project. Emphasis will be placed on appropriate methodologies, standards, legislation and the nine core knowledge areas associated with project management. You’ll be challenged during your learning and assessments to relate to your own experiences and/or organisations.', 700,
+VALUES (6, 'Develop your knowledge so you can initiate, plan, execute, manage and sign off a project. Emphasis will be placed on appropriate methodologies, standards, legislation and the nine core knowledge areas associated with project management. You''ll be challenged during your learning and assessments to relate to your own experiences and/or organisations.', 700,
         'Project Management');
 INSERT INTO student.course (id, description, fee, title)
-VALUES (7, 'Learn about the fundamental principles and approaches for Intelligent Systems, autonomous behaviour, sensing and control, through the practical example of a simple robotic device (Delta Robot). You’ll have opportunity to work practically with the robot and develop software for simple behavioural and reaction patterns of robotic devices.', 725,
+VALUES (7, 'Learn about the fundamental principles and approaches for Intelligent Systems, autonomous behaviour, sensing and control, through the practical example of a simple robotic device (Delta Robot). You''ll have opportunity to work practically with the robot and develop software for simple behavioural and reaction patterns of robotic devices.', 725,
         'Intelligent Systems and Robotics');
 INSERT INTO student.course (id, description, fee, title)
-VALUES (8, 'This module provides the opportunity to engage in research or advanced scholarship in a subject area that is appropriate to your award and is of particular interest to you. You’ll carry out an in-depth research project, which will be discussed in a formal dissertation and viva.', 1000,
+VALUES (8, 'This module provides the opportunity to engage in research or advanced scholarship in a subject area that is appropriate to your award and is of particular interest to you. You''ll carry out an in-depth research project, which will be discussed in a formal dissertation and viva.', 1000,
         'Dissertation');
 INSERT INTO student.course (id, description, fee, title)
 VALUES (9, 'Examine how to build cloud services and the technologies required to provide these to client-side systems. Well established protocols that are used to communicate with server-side software will also be examined, as will consideration for aspects such as security and n-tier systems.', 650,
         'Cloud Computing Development');
 INSERT INTO student.course (id, description, fee, title)
-VALUES (10, 'This module covers the principles of monitoring network performance and gathering network management data. You’ll learn to extract network parameters using industry standard tools like OpenNMS and PRTG. You’ll also be trained on SNMP protocol and will be able to put this into context of management of corporate networks.', 600,
+VALUES (10, 'This module covers the principles of monitoring network performance and gathering network management data. You''ll learn to extract network parameters using industry standard tools like OpenNMS and PRTG. You''ll also be trained on SNMP protocol and will be able to put this into context of management of corporate networks.', 600,
         'Network Management');
 INSERT INTO student.course (id, description, fee, title)
 VALUES (11, 'This module provides an in-depth look at the Service-Oriented Architecture paradigm and, more specifically, at its recent development: Microservices. You will gain theoretical knowledge of software design using a modular, loosely coupled approach, as well as practical experience with implementation tools and techniques highly valued in the industry.', 800,
         'Software Engineering for Service Computing');
 INSERT INTO student.course (id, description, fee, title)
-VALUES (12, 'Gain an in-depth, systematic and critical understanding of the current research on data intelligence and issues concerning data analysis and knowledge discovery. You’ll also look at techniques for data analysis from both a theoretical and practical perspective.', 670,
+VALUES (12, 'Gain an in-depth, systematic and critical understanding of the current research on data intelligence and issues concerning data analysis and knowledge discovery. You''ll also look at techniques for data analysis from both a theoretical and practical perspective.', 670,
         'Applied Data Analytics');
 INSERT INTO student.course (id, description, fee, title)
-VALUES (13, 'Understand the techniques involved in systems programming - you’ll study various approaches of design and programming modern day computer systems at a very intricate level.', 450,
+VALUES (13, 'Understand the techniques involved in systems programming - you''ll study various approaches of design and programming modern day computer systems at a very intricate level.', 450,
         'Software and Systems');
 INSERT INTO student.course (id, description, fee, title)
-VALUES (14, 'This module will give you the opportunity to broaden and deepen your knowledge in your chosen areas of study. Working with your module tutor and project supervisor, you’ll research and apply current theory and practice to develop high level skills within a framework of self-directed learning.', 580,
+VALUES (14, 'This module will give you the opportunity to broaden and deepen your knowledge in your chosen areas of study. Working with your module tutor and project supervisor, you''ll research and apply current theory and practice to develop high level skills within a framework of self-directed learning.', 580,
         'Negotiated Skills Development');
 INSERT INTO student.course (id, description, fee, title)
 VALUES (15, 'This module provides an introduction to reverse-engineering malware binaries for the x86 architecture. You will be introduced to low level programming languages such as C and assembly language and will develop practical and theoretical skills to enable you to perform both static and dynamic analysis of malware code. This module also takes an in-depth look at typical malware behaviour and how to leverage state-of-the-art reverse-engineering tools to facilitate your analysis.', 850,
         'Reverse Engineering and Malware Analysis');
 INSERT INTO student.course (id, description, fee, title)
-VALUES (16, 'This module will introduce modern image/video processing techniques and applications in digital forensic investigation. You’ll learn concepts of digital image/video processing application and how to apply techniques such as image filtering, de-nosing, enhancement and restoration methods in different scenarios.', 720,
+VALUES (16, 'This module will introduce modern image/video processing techniques and applications in digital forensic investigation. You''ll learn concepts of digital image/video processing application and how to apply techniques such as image filtering, de-nosing, enhancement and restoration methods in different scenarios.', 720,
         'Forensic Image and Video Processing');
 INSERT INTO student.course (id, description, fee, title)
-VALUES (17, 'Deepen your understanding and experience of the technical underpinnings of software security. You’ll gain experience with software vulnerabilities and will review code with software design and implementation bugs (including buffer overflows, injection attacks, and other faults). You’ll audit code for the presence of security vulnerabilities both manually and using advanced approaches such as fuzz-testing and static analysis. You’ll apply mitigation techniques to remove vulnerabilities from software.', 550,
+VALUES (17, 'Deepen your understanding and experience of the technical underpinnings of software security. You''ll gain experience with software vulnerabilities and will review code with software design and implementation bugs (including buffer overflows, injection attacks, and other faults). You''ll audit code for the presence of security vulnerabilities both manually and using advanced approaches such as fuzz-testing and static analysis. You''ll apply mitigation techniques to remove vulnerabilities from software.', 550,
         'Software Security and Exploitation');
 INSERT INTO student.course (id, description, fee, title)
 VALUES (18, 'This is an introduction to the theories and methods that are core to historical research. You will study research skills and methods, exploring libraries, sources, archives and treatments of history using case studies. You will analyse the relationships between literary texts, historical documents, and films, as well as scrutinising how events have been recorded, historicised, fictionalised and dramatised.', 550,
@@ -180,7 +179,7 @@ INSERT INTO student.course (id, description, fee, title)
 VALUES (39, 'Explore the rigorous craft of typography as a means to manage language, function and space, and consider how meaning and expression can be used to enhance a visual form. You will work through practical problems of managing complex amounts of information within a defined space and format, to enhance communication and the reader/viewer experience.', 790,
         'Typography');
 INSERT INTO student.course (id, description, fee, title)
-VALUES (40, 'Study the professional context in which artists are required to teach workshops, master-classes or to ‘tour’ their teaching alongside performance work. You''ll understand this method as a way of gaining support and building public engagement, opening up and sharing process and practice. You''ll address the ways in which choreographers can share and develop their practice as teachers and the skills required to do this effectively. Teaching and workshop situations are often a creative space for artists to test their own creative thinking, choreographic philosophies and embodied principles with a group of workshop participants. As such, you''ll consider how pedagogy is situated in relation to your artistic practice and explore how you want to establish your teacher identity. The module will focus on what the key concerns of artists teaching with integrity may be in contemporary contexts. Your focus will be the teaching of creative practice and choreography, and you''ll explore the pedagogic and philosophic principles of ‘workshopping’ and creative group leadership.', 580,
+VALUES (40, 'Study the professional context in which artists are required to teach workshops, master-classes or to ''tour'' their teaching alongside performance work. You''ll understand this method as a way of gaining support and building public engagement, opening up and sharing process and practice. You''ll address the ways in which choreographers can share and develop their practice as teachers and the skills required to do this effectively. Teaching and workshop situations are often a creative space for artists to test their own creative thinking, choreographic philosophies and embodied principles with a group of workshop participants. As such, you''ll consider how pedagogy is situated in relation to your artistic practice and explore how you want to establish your teacher identity. The module will focus on what the key concerns of artists teaching with integrity may be in contemporary contexts. Your focus will be the teaching of creative practice and choreography, and you''ll explore the pedagogic and philosophic principles of ''workshopping'' and creative group leadership.', 580,
         'Artist as Teacher');
 INSERT INTO student.course (id, description, fee, title)
 VALUES (41, 'This module will introduce you to some key ideas, issues and theoretical debates in education. You''ll engage in exploratory discussions about the ways that these issues relate to the right of citizens and particularly children to education.', 200,
