@@ -37,6 +37,7 @@ public class CourseServiceTestBase {
     protected Student student;
     protected Student createdStudent;
     protected Enrolment enrolment;
+    protected Invoice invoice;
 
     @BeforeEach
     public void setUp() {
@@ -71,6 +72,9 @@ public class CourseServiceTestBase {
         userStudent.setStudent(student);
 
         enrolment = new Enrolment(student, course2);
+        invoice = new Invoice();
+        invoice.setAmount(course2.getFee());
+        invoice.setReference("ABCD1234");
     }
 
     protected void defineMockingBehaviour() {
@@ -88,8 +92,8 @@ public class CourseServiceTestBase {
                 .thenReturn(enrolment);
         Mockito.when(enrolmentService.createEnrolment(student, course2))
                 .thenThrow(new EnrolmentAlreadyExistsException());
-        Mockito.doNothing()
-                .when(integrationService).createCourseFeeInvoice(any(Invoice.class));
+        Mockito.when(integrationService.createCourseFeeInvoice(any(Invoice.class)))
+                .thenReturn(invoice);
         Mockito.doNothing()
                 .when(integrationService).notifyStudentCreated(any(Account.class));
         Mockito.when(userService.findStudentFromUser(userStudent))

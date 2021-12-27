@@ -57,7 +57,7 @@ class CourseServiceTest extends CourseServiceTestBase {
         ModelAndView result = courseService.getCourse(course2.getId(), userStudent);
         assertEquals(result.getViewName(), "course");
         assertNotNull(result.getModel());
-        assertEquals(3, result.getModel().size());
+        assertEquals(4, result.getModel().size());
         Object courseReturned = result.getModel().get("course");
         if (courseReturned instanceof Course) {
             assertEquals(course2, courseReturned);
@@ -67,6 +67,7 @@ class CourseServiceTest extends CourseServiceTestBase {
             assertEquals(student, studentReturned);
         }
         assertTrue((Boolean) result.getModel().get("isEnrolled"));
+        assertEquals("You are enrolled in this course.", result.getModel().get("message"));
     }
 
     @Test
@@ -119,7 +120,7 @@ class CourseServiceTest extends CourseServiceTestBase {
         ModelAndView result = courseService.enrolInCourse(course3.getId(), userStudent);
         assertEquals(result.getViewName(), "course");
         assertNotNull(result.getModel());
-        assertEquals(3, result.getModel().size());
+        assertEquals(4, result.getModel().size());
         Object courseReturned = result.getModel().get("course");
         if (courseReturned instanceof Course) {
             assertEquals(course3, courseReturned);
@@ -129,6 +130,8 @@ class CourseServiceTest extends CourseServiceTestBase {
             assertEquals(student, studentReturned);
         }
         assertTrue((Boolean) result.getModel().get("isEnrolled"));
+        assertTrue(result.getModel().get("message").toString().contains("Please log into the Finance Portal to pay the invoice reference: "));
+        assertTrue(result.getModel().get("message").toString().contains(invoice.getReference()));
         verify(enrolmentService, times(1)).createEnrolment(student, course3);
     }
 
@@ -137,7 +140,7 @@ class CourseServiceTest extends CourseServiceTestBase {
         ModelAndView result = courseService.enrolInCourse(course3.getId(), userToBecomeStudent);
         assertEquals(result.getViewName(), "course");
         assertNotNull(result.getModel());
-        assertEquals(3, result.getModel().size());
+        assertEquals(4, result.getModel().size());
         Object courseReturned = result.getModel().get("course");
         if (courseReturned instanceof Course) {
             assertEquals(course3, courseReturned);
@@ -146,6 +149,8 @@ class CourseServiceTest extends CourseServiceTestBase {
         assertTrue((Boolean) result.getModel().get("isEnrolled"));
         verify(userService, times(1)).createStudentFromUser(userToBecomeStudent);
         verify(enrolmentService, times(1)).createEnrolment((Student) result.getModel().get("student"), course3);
+        assertTrue(result.getModel().get("message").toString().contains("Please log into the Finance Portal to pay the invoice reference: "));
+        assertTrue(result.getModel().get("message").toString().contains(invoice.getReference()));
     }
 
     @Test
@@ -159,11 +164,13 @@ class CourseServiceTest extends CourseServiceTestBase {
         assertThrows(ConstraintViolationException.class, () -> courseService.enrolInCourse(course2.getId(), null),
                 "Exception was not thrown.");
     }
+
     @Test
     void testEnrolInCourse_courseIdIsNull_throwsConstraintViolationException() {
         assertThrows(ConstraintViolationException.class, () -> courseService.enrolInCourse(null, userStudent),
                 "Exception was not thrown.");
     }
+
     @Test
     void testEnrolInCourse_courseIdAndUserAreNull_throwsConstraintViolationException() {
         assertThrows(ConstraintViolationException.class, () -> courseService.enrolInCourse(null, null),

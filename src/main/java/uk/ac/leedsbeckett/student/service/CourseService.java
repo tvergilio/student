@@ -1,5 +1,6 @@
 package uk.ac.leedsbeckett.student.service;
 
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,7 +39,7 @@ public class CourseService {
     public ModelAndView getCourse(@NotNull Long id, @NotNull User user) {
         populateStudentAndCourse(user, id);
         Enrolment existingEnrolment = enrolmentService.findEnrolment(course, student);
-        return getModelAndView(existingEnrolment != null);
+        return getModelAndView(existingEnrolment != null, null);
     }
 
     public ModelAndView enrolInCourse(@NotNull Long id, @NotNull User user) {
@@ -48,8 +49,8 @@ public class CourseService {
         }
         student = userService.findStudentFromUser(user);
         enrolmentService.createEnrolment(student, course);
-        notifySubscribers(student, course);
-        return getModelAndView(true);
+        Invoice invoice = notifySubscribers(student, course);
+        return getModelAndView(true, invoice);
     }
 
     public ModelAndView searchCourses(String searchString) {
@@ -59,11 +60,20 @@ public class CourseService {
         return modelAndView;
     }
 
-    private ModelAndView getModelAndView(boolean isEnrolled) {
+    private ModelAndView getModelAndView(Boolean isEnrolled, @Nullable Invoice invoice) {
         ModelAndView modelAndView = new ModelAndView("course");
         modelAndView.addObject("course", course);
         modelAndView.addObject("student", student);
         modelAndView.addObject("isEnrolled", isEnrolled);
+        StringBuilder message = new StringBuilder("You are enrolled in this course.");
+        if (invoice != null && invoice.getReference() != null && !invoice.getReference().isEmpty()) {
+            message.append(" Please log into the Finance Portal to pay the invoice reference: ")
+                    .append(invoice.getReference())
+                    .append(".");
+        }
+        if (isEnrolled) {
+            modelAndView.addObject("message", message.toString());
+        }
         return modelAndView;
     }
 
@@ -72,7 +82,7 @@ public class CourseService {
         course = courseRepository.findById(courseId).orElseThrow(CourseNotFoundException::new);
     }
 
-    private void notifySubscribers(Student student, Course course) {
+    private Invoice notifySubscribers(Student student, Course course) {
         Account account = new Account();
         account.setStudentId(student.getStudentId());
         Invoice invoice = new Invoice();
@@ -80,7 +90,7 @@ public class CourseService {
         invoice.setType(Invoice.Type.TUITION_FEES);
         invoice.setAmount(course.getFee());
         invoice.setDueDate(LocalDate.now().plusMonths(1));
-        integrationService.createCourseFeeInvoice(invoice);
+        return integrationService.createCourseFeeInvoice(invoice);
     }
 
 }

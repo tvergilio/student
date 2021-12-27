@@ -33,8 +33,7 @@ public class IntegrationService {
                 .collect(Collectors.toList());
     }
 
-    public void createCourseFeeInvoice(@NotNull Invoice invoice) {
-        Invoice response = restTemplate.postForObject(courseEnrolmentSubscriber, invoice, Invoice.class);
-        System.out.println(response);
+    public Invoice createCourseFeeInvoice(@NotNull Invoice invoice) {
+        return restTemplate.postForObject(courseEnrolmentSubscriber, invoice, Invoice.class);
     }
 }
