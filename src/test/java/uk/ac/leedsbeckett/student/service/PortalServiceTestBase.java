@@ -49,10 +49,10 @@ public class PortalServiceTestBase {
 
     @AfterEach
     public void tearDown() {
-            userStudent = null;
-            userNotStudent = null;
-            student = null;
-            userRepository = null;
-            portalService = null;
+        userStudent = null;
+        userNotStudent = null;
+        student = null;
+        userRepository = null;
+        portalService = null;
     }
 }

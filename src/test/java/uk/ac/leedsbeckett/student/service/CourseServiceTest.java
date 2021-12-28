@@ -9,12 +9,14 @@ import org.springframework.web.servlet.ModelAndView;
 import uk.ac.leedsbeckett.student.exception.CourseNotFoundException;
 import uk.ac.leedsbeckett.student.exception.EnrolmentAlreadyExistsException;
 import uk.ac.leedsbeckett.student.model.Course;
+import uk.ac.leedsbeckett.student.model.Invoice;
 import uk.ac.leedsbeckett.student.model.Student;
 
 import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -131,8 +133,8 @@ class CourseServiceTest extends CourseServiceTestBase {
         }
         assertTrue((Boolean) result.getModel().get("isEnrolled"));
         assertTrue(result.getModel().get("message").toString().contains("Please log into the Payment Portal to pay the invoice reference: "));
-        assertTrue(result.getModel().get("message").toString().contains(invoice.getReference()));
-        verify(enrolmentService, times(1)).createEnrolment(student, course3);
+        verify(enrolmentService, times(1)).createEnrolment(course3, student);
+        verify(integrationService, times(1)).createCourseFeeInvoice(any(Invoice.class));
     }
 
     @Test
@@ -148,9 +150,9 @@ class CourseServiceTest extends CourseServiceTestBase {
         assertNotNull(result.getModel().get("student"));
         assertTrue((Boolean) result.getModel().get("isEnrolled"));
         verify(userService, times(1)).createStudentFromUser(userToBecomeStudent);
-        verify(enrolmentService, times(1)).createEnrolment((Student) result.getModel().get("student"), course3);
+        verify(enrolmentService, times(1)).createEnrolment(course3, (Student) result.getModel().get("student"));
         assertTrue(result.getModel().get("message").toString().contains("Please log into the Payment Portal to pay the invoice reference: "));
-        assertTrue(result.getModel().get("message").toString().contains(invoice.getReference()));
+        verify(integrationService, times(1)).createCourseFeeInvoice(any(Invoice.class));
     }
 
     @Test

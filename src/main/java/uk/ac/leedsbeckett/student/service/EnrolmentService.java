@@ -26,7 +26,7 @@ public class EnrolmentService {
         this.integrationService = integrationService;
     }
 
-    public Enrolment createEnrolment(@NotNull Student student, @NotNull Course course) {
+    public Enrolment createEnrolment(@NotNull Course course, @NotNull Student student) {
         if (enrolmentRepository.findEnrolmentByCourseAndStudent(course, student) != null) {
             throw new EnrolmentAlreadyExistsException("Student " + student.getStudentId() + " is already enrolled in course " + course.getTitle());
         }

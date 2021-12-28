@@ -36,8 +36,10 @@ public class CourseServiceTestBase {
     protected User userToBecomeStudent;
     protected Student student;
     protected Student createdStudent;
-    protected Enrolment enrolment;
+    protected Enrolment enrolmentCourse2;
+    protected Enrolment enrolmentCourse3;
     protected Invoice invoice;
+    protected Account account;
 
     @BeforeEach
     public void setUp() {
@@ -71,10 +73,15 @@ public class CourseServiceTestBase {
         createdStudent = new Student(faker.name().firstName(), faker.name().lastName());
         userStudent.setStudent(student);
 
-        enrolment = new Enrolment(student, course2);
+        enrolmentCourse2 = new Enrolment(student, course2);
+        enrolmentCourse3 = new Enrolment(student, course3);
+
         invoice = new Invoice();
-        invoice.setAmount(course2.getFee());
         invoice.setReference("ABCD1234");
+        account = new Account();
+        account.setHasOutstandingBalance(true);
+        invoice.setAccount(account);
+
     }
 
     protected void defineMockingBehaviour() {
@@ -89,8 +96,10 @@ public class CourseServiceTestBase {
         Mockito.when(enrolmentService.findEnrolment(course1, student))
                 .thenReturn(null);
         Mockito.when(enrolmentService.findEnrolment(course2, student))
-                .thenReturn(enrolment);
-        Mockito.when(enrolmentService.createEnrolment(student, course2))
+                .thenReturn(enrolmentCourse2);
+        Mockito.when(enrolmentService.createEnrolment(course3, student))
+                .thenReturn(enrolmentCourse3);
+        Mockito.when(enrolmentService.createEnrolment(course2, student))
                 .thenThrow(new EnrolmentAlreadyExistsException());
         Mockito.when(integrationService.createCourseFeeInvoice(any(Invoice.class)))
                 .thenReturn(invoice);
@@ -125,7 +134,10 @@ public class CourseServiceTestBase {
         userNotStudent = null;
         userToBecomeStudent = null;
         student = null;
-        enrolment = null;
+        enrolmentCourse2 = null;
+        enrolmentCourse3 = null;
+        invoice = null;
+        account = null;
         courseRepository = null;
         userService = null;
         enrolmentService = null;

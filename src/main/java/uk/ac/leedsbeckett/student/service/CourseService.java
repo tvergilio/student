@@ -48,7 +48,7 @@ public class CourseService {
             userService.createStudentFromUser(user);
         }
         student = userService.findStudentFromUser(user);
-        enrolmentService.createEnrolment(student, course);
+        enrolmentService.createEnrolment(course, student);
         Invoice invoice = notifySubscribers(student, course);
         return getModelAndView(true, invoice);
     }

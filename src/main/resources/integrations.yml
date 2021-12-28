@@ -8,6 +8,6 @@ finance:
     status: /accounts/student/
 
 #library:
-#  host: http://127.17.0.1:80
+#  host: http://libraryapp:80
 #  student:
 #    create: /api/register
