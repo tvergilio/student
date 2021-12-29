@@ -16,21 +16,22 @@ You will need to make changes to `application.properties`
 
 ## Publish to Docker Hub
 1. Log in
-   `docker login --username=XXXXXXX`
+   `docker login --username=tvergilio`
+   (replace tvergilio with your Docker Hub username)
 
-2. Get List of Images
+3. Get List of Images
    `docker images`
 
-3. Tag Image
-   `docker tag tvergilio/student XXXXX/student:1.0`<br/>
-   (replace XXXXXXXX with your Docker Hub username; increment the version)
+4. Tag Image
+   `docker tag tvergilio/student tvergilio/student:1.0`<br/>
+   (replace tvergilio with your Docker Hub username; increment the version)
 
-4. Push to Docker Hub
-   `docker push tvergilio/student`
+5. Push to Docker Hub
+   `docker push tvergilio/student:1.0`
 
 ## Run container from image stored in Docker Hub
-`docker run --publish 8090:8090 XXXXXX/student:1.0`<br/>
-(replace XXXXXXXX with your Docker Hub username; check the version)
+`docker run --publish 8090:8090 tvergilio/student:1.0`<br/>
+(replace tvergilio with your Docker Hub username; check the version)
 
 ## To clean old images and containers
 `docker system prune -a`<br/>
