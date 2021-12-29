@@ -7,7 +7,7 @@ finance:
   account:
     status: /accounts/student/
 
-#library:
-#  host: http://libraryapp:80
-#  student:
-#    create: /api/register
+library:
+  host: http://libraryapp:80
+  student:
+    create: /api/register

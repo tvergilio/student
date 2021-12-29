@@ -20,6 +20,10 @@ public class IntegrationService {
     private String financeHost;
     @Value("${finance.student.create}")
     private String studentCreatedFinanceSubscriber;
+    @Value("${library.host}")
+    private String libraryHost;
+    @Value("${library.student.create}")
+    private String studentCreatedLibrarySubscriber;
     @Value("${finance.course.enrol}")
     private String courseEnrolmentFinanceSubscriber;
     @Value("${finance.account.status}")
@@ -30,7 +34,8 @@ public class IntegrationService {
     }
 
     public void notifyStudentCreated(@NotNull Account account) {
-        Account response = restTemplate.postForObject(financeHost + studentCreatedFinanceSubscriber, account, Account.class);
+        restTemplate.postForObject(financeHost + studentCreatedFinanceSubscriber, account, Account.class);
+        restTemplate.postForObject(libraryHost + studentCreatedLibrarySubscriber, account, Account.class);
     }
 
     public Invoice createCourseFeeInvoice(@NotNull Invoice invoice) {

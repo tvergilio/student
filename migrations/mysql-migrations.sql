@@ -56,10 +56,16 @@ INSERT INTO student.student (id, forename, student_id, surname)
 VALUES (2, 'Jesse', 'c3922382', 'Pinkman');
 
 INSERT INTO student.portal_user (id, email, password, role, user_name)
-VALUES (1, 'w.white@gmail.com', 'password', 0, 'walterwhite');
+VALUES (1, 'w.white@gmail.com', '$2a$10$VAe0TshcDRpQONvzXn8.le/7e1UktcoUtnSfBNaicitxSBcvMybD.', 0, 'walterwhite');
+
+INSERT INTO student.portal_user (id, email, password, role, user_name)
+VALUES (2, 'j.pinkman@gmail.com', '$2a$10$K4V3sCLlwg89MeXhqnqxAeVUECnOJHV.Vr6n09UCg03gEed/Q6f06', 0, 'jessepinkman');
 
 INSERT INTO student.portal_user_student (student_id, user_id)
 VALUES (1, 1);
+
+INSERT INTO student.portal_user_student (student_id, user_id)
+VALUES (2, 2);
 
 INSERT INTO student.course (id, description, fee, title)
 VALUES (1, 'An introductory course covering the fundamentals of object-oriented programming.', 150,
