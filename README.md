@@ -17,13 +17,13 @@ The application integrates with a MariaDB relational database.<br/>
 Scripts to create the database schema can be found in the migrations folder and are run automatically by docker-compose.
 
 ### 2. Finance
-The application integrates with the Finance microservice via REST.
+The application integrates with the [Finance microservice](https://github.com/tvergilio/finance) via REST.
    1. When a student is created, a request is sent to the Finance microservice to create an account.
    2. When you enrol in a course, a request is sent to the Finance microservice to create an invoice.
    3. Upon checking the eligibility to graduate, a request is sent to the Finance microservice to see if there are any outstanding payments.
 
 ### 3. Library
-The application integrates with the Library microservice via REST.
+The application integrates with the [Library microservice](https://github.com/AidanCurley/CESBooks) via REST.
    1. When a student is created, a request is sent to the Library microservice to create an account.
    2. When a book is returned late, a fine is issued. A request is sent to the Finance microservice to create an invoice.
 
@@ -31,7 +31,7 @@ The application integrates with the Library microservice via REST.
 
 
 ## Run using Docker Compose
-1. Ensure the finance and library microservices are running, or the integrations will not work.<br/>
+1. Ensure the finance and library microservices are running, or the integrations will not work. **Finance must be started first.**<br/>
 2. Edit any credentials in the `.env` file as needed (do not rename the DB_NAME).<br/>
 3. From the `student` directory, run the app and db services:<br/><br/>
    `docker-compose up`
