@@ -5,6 +5,7 @@
     <meta th:replace="fragments/header"/>
 </head>
 <body>
+<div id="alert" th:if="${message}" th:text="${message}" th:class="${'alert alert-danger text-center'}"></div>
 <div id="container">
     <form class="form-signin" th:action="@{/register}" th:object="${user}"
           method="post">

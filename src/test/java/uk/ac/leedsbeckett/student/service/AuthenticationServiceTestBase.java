@@ -19,6 +19,9 @@ public class AuthenticationServiceTestBase {
     protected AuthenticationService authenticationService;
 
     protected User user;
+    protected User invalidUserSameUsername;
+    protected User invalidUserSameEmail;
+    protected User invalidUserSameUsernameAndEmail;
 
     @BeforeEach
     public void setUp() {
@@ -30,11 +33,24 @@ public class AuthenticationServiceTestBase {
         Faker faker = new Faker();
         user = new User(faker.name().username(), Role.STUDENT, "user@gmail.com", faker.animal().name());
         user.setId(1L);
+        invalidUserSameUsername = new User(faker.name().username(), Role.STUDENT, "invalidUser1@gmail.com", faker.animal().name());
+        invalidUserSameEmail = new User(faker.name().username(), Role.STUDENT, "invalidUser2@gmail.com", faker.animal().name());
+        invalidUserSameUsernameAndEmail = new User(faker.name().username(), Role.STUDENT, "invalidUser3@gmail.com", faker.animal().name());
     }
 
     protected void defineMockingBehaviour() {
         Mockito.when(userRepository.save(any(User.class)))
                 .then(returnsFirstArg());
+        Mockito.when(userRepository.findUserByUserName(user.getUserName()))
+                .thenReturn(null);
+        Mockito.when(userRepository.findUserByUserName(invalidUserSameUsername.getUserName()))
+                .thenReturn(invalidUserSameUsername);
+        Mockito.when(userRepository.findUserByEmail(invalidUserSameEmail.getEmail()))
+                .thenReturn(invalidUserSameEmail);
+        Mockito.when(userRepository.findUserByUserName(invalidUserSameUsernameAndEmail.getUserName()))
+                .thenReturn(invalidUserSameUsernameAndEmail);
+        Mockito.when(userRepository.findUserByEmail(invalidUserSameUsernameAndEmail.getEmail()))
+                .thenReturn(invalidUserSameUsernameAndEmail);
     }
 
     @AfterEach
