@@ -28,7 +28,8 @@ The application integrates with the [Library microservice](https://github.com/Ai
    2. When a book is returned late, a fine is issued. A request is sent to the Finance microservice to create an invoice.
 
 ## Demos
-
+### Assignment Requirements and Demo
+[![Watch the demo.](http://img.youtube.com/vi/r6HiSi85-YU/hqdefault.jpg)](https://youtu.be/r6HiSi85-YU)
 
 ## Run using Docker Compose
 1. Ensure the finance and library microservices are running, or the integrations will not work. **Finance must be started first.**<br/>
