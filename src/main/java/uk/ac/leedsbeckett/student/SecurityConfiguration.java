@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import uk.ac.leedsbeckett.student.model.UserRepository;
 import uk.ac.leedsbeckett.student.service.PortalService;
 
@@ -65,7 +66,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/home", true)
                 .permitAll()
                 .and()
-                .logout().permitAll()
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/logout.done").deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true)
                 .and()
                 .rememberMe()
                 .and()
