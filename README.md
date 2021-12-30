@@ -6,10 +6,10 @@ This is a simple microservices-based application which exposes a RESTful API. It
 ## Features
 1. Register/Log in - create a portal user and log in.
 2. View Courses - view all the courses offered.
-3. Enrol in Course - enrol in course, at which point a student account is created. 
-4. View Enrollments - view all the courses you are enrolled in.
+3. Enrol in Course - enrol in course. If this is your first enrolment, a student account is created at this point. 
+4. View Enrolments - view all the courses you are enrolled in.
 5. View/Update Student Profile - view profile (includes student ID), update name and surname.
-6. Graduation - view eligibility to graduate (must not have any outstanding payments).
+6. Graduation - view eligibility to graduate (must not have any outstanding invoices).
 
 ## Integrations
 ### 1. Database
@@ -20,7 +20,7 @@ Scripts to create the database schema can be found in the migrations folder and 
 The application integrates with the [Finance microservice](https://github.com/tvergilio/finance) via REST.
    1. When a student is created, a request is sent to the Finance microservice to create an account.
    2. When you enrol in a course, a request is sent to the Finance microservice to create an invoice.
-   3. Upon checking the eligibility to graduate, a request is sent to the Finance microservice to see if there are any outstanding payments.
+   3. Upon checking the eligibility to graduate, a request is sent to the Finance microservice to see if there are any outstanding invoices.
 
 ### 3. Library
 The application integrates with the [Library microservice](https://github.com/AidanCurley/CESBooks) via REST.
@@ -33,7 +33,7 @@ The application integrates with the [Library microservice](https://github.com/Ai
 ## Run using Docker Compose
 1. Ensure the finance and library microservices are running, or the integrations will not work. **Finance must be started first.**<br/>
 2. Edit any credentials in the `.env` file as needed (do not rename the DB_NAME).<br/>
-3. From the `student` directory, run the app and db services:<br/><br/>
+3. From the `student` directory, run the app and db services:<br/>
    `docker-compose up`
 
 ## Contributing
